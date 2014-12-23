@@ -9,12 +9,36 @@ namespace EVOLUTION{
         namespace TIMER{
 
             //アプリケーションがスタートしてからの時間
-            class ApplicationCounter : public IApplicationCounter{
+            class HighQualityApplicationCounter : public IApplicationCounter{
             private:
                 EVOLUTION::InstanceCounter m_instance_counter;
 
                 LARGE_INTEGER m_clock;
                 LARGE_INTEGER m_start;
+
+            public:
+                //IUnknown
+                u32 AddRef();
+                RESULT QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject);
+                u32 Release();
+
+                HighQualityApplicationCounter();
+                ~HighQualityApplicationCounter();
+
+                RESULT Create();
+
+                //アプリケーションが開始してからの経過時間
+                u64 GetMilliSecondU64()const;
+                //アプリケーションが開始してからの経過時間
+                u32 GetMilliSecondU32()const;
+            };
+
+            //アプリケーションがスタートしてからの時間
+            class ApplicationCounter : public IApplicationCounter{
+            private:
+                EVOLUTION::InstanceCounter m_instance_counter;
+
+                u32 m_start;
 
             public:
                 //IUnknown
@@ -76,6 +100,11 @@ namespace EVOLUTION{
     //EVOLUTION Globally Unique Identifier
     //-------------------------------------------------------
     namespace EVOLUTION_GUID{
+        // {1829B87D-2030-4094-8BA5-584AA279AC44}
+        static const EVOLUTION_IID IID_HighQualityApplicationCounter =
+        { 0x1829b87d, 0x2030, 0x4094, { 0x8b, 0xa5, 0x58, 0x4a, 0xa2, 0x79, 0xac, 0x44 } };
+
+
         // {DDDE664B-B647-4366-834F-9CE89DF0386B}
         static const EVOLUTION_IID IID_ApplicationCounter =
         { 0xddde664b, 0xb647, 0x4366, { 0x83, 0x4f, 0x9c, 0xe8, 0x9d, 0xf0, 0x38, 0x6b } };
