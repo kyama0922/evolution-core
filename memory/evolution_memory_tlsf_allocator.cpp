@@ -25,7 +25,7 @@ RESULT EVOLUTION::FUNCTION::CreateTLSFStaticMemoryManager(CORE::MEMORY::IStaticM
 
 //メモリマネージャーの作成
 RESULT EVOLUTION::FUNCTION::CreateTLSFStaticMemoryManager(CORE::MEMORY::IStaticMemoryManager** memory_manager, ptr_t pointer, ptr_size_t size){
-    TLSFMemoryAllocator* static_memory_manager = new((void*)pointer)TLSFMemoryAllocator(pointer - sizeof(TLSFMemoryAllocator), size);
+    TLSFMemoryAllocator* static_memory_manager = new((void*)pointer)TLSFMemoryAllocator(pointer + sizeof(TLSFMemoryAllocator), size - sizeof(TLSFMemoryAllocator));
     if (static_memory_manager == nullptr)
     {
         throw MemoryException::CREATING_A_MEMORY_MANAGER_FAILURE;
@@ -87,6 +87,11 @@ TLSFMemoryAllocator::TLSFMemoryAllocator(ptr_size_t size) :m_use_memory_size(0),
 }
 
 TLSFMemoryAllocator::TLSFMemoryAllocator(ptr_t pointer, ptr_size_t size) : m_use_memory_size(0), mp_memory_pool(pointer), m_on_free(false){
+    if ((mp_memory_pool & 0x0F) != 0)
+    {
+        mp_memory_pool += mp_memory_pool & 0x0F;
+    }
+    m_memory_size = size - (pointer - mp_memory_pool);
     this->m_tlsf_instance = tlsf_create_with_pool((void*)this->mp_memory_pool, m_memory_size);
 }
 
