@@ -7,6 +7,9 @@
 //配列を管理するクラス
 #include "evolution_array.h"
 
-//ハッシュマップ
-//#include "evolution_hashmap.h"
+//vector
+#include "evolution_vector.h"
+
+//リスト
+#include "evolution_list.h"
 #endif //!__EVOLUTION_TEMPLATE_H_

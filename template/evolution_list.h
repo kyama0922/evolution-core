@@ -3,14 +3,6 @@
 
 #include <evolution_type.h>
 
-#undef NEW
-#ifndef NEW
-#include <crtdbg.h>
-#if _DEBUG
-#define NEW  new(_NORMAL_BLOCK, __FILE__, __LINE__)
-#endif
-#endif
-
 namespace EVOLUTION{
 	namespace TEMPLATE{
 
@@ -193,7 +185,7 @@ namespace EVOLUTION{
 
 			~List(){
 				this->clear();
-				MONOBIT_DELETE(mp_end_node);
+				EVOLUTION_DELETE(mp_end_node);
 			}
 
             //ç≈èIóvëfÇÃéÊìæ
@@ -391,20 +383,6 @@ namespace EVOLUTION{
 				list.m_size = size;
 
 			}
-            //void remove();
-            //void assign();
-			//void get_allocator(); 
-			//void insert();
-			//void max_size(); 
-			//void merge();
-			//void rbegin();
-			//void remove_if();
-			//void rend(); 
-			//void resize();
-			//void reverse();
-			//void sort();
-			//void splice();
-			//void unique();
 		};
 	}
 }

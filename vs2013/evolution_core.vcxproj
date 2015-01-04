@@ -37,6 +37,7 @@
     <ClCompile Include="..\function\evolution_function_wchar_to_char.cpp" />
     <ClCompile Include="..\memory\evolution_memory_dynamic_memory_correction.cpp" />
     <ClCompile Include="..\memory\evolution_memory_tlsf_allocator.cpp" />
+    <ClCompile Include="..\memory\evolution_stack_memory_manager.cpp" />
     <ClCompile Include="..\memory\tlsf-3.0\tlsf.c" />
     <ClCompile Include="..\thread\evolution_mutex.cpp" />
     <ClCompile Include="..\thread\evolution_parameter.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="..\memory\evolution_memory_dynamic_memory_correction.h" />
     <ClInclude Include="..\memory\evolution_memory_interface.h" />
     <ClInclude Include="..\memory\evolution_memory_tlsf_allocator.h" />
+    <ClInclude Include="..\memory\evolution_stack_memory_manager.h" />
     <ClInclude Include="..\memory\tlsf-3.0\tlsf.h" />
     <ClInclude Include="..\memory\tlsf-3.0\tlsfbits.h" />
     <ClInclude Include="..\template\evolution_array.h" />
@@ -73,6 +75,7 @@
     <ClInclude Include="..\template\evolution_map.h" />
     <ClInclude Include="..\template\evolution_singleton.h" />
     <ClInclude Include="..\template\evolution_template.h" />
+    <ClInclude Include="..\template\evolution_vector.h" />
     <ClInclude Include="..\thread\evolution_thread.h" />
     <ClInclude Include="..\thread\evolution_thread_implement.h" />
     <ClInclude Include="..\thread\evolution_thread_interface.h" />

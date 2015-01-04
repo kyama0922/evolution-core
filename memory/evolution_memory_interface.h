@@ -70,6 +70,20 @@ namespace EVOLUTION{
                 virtual void DebugDataShow() = 0;
             };
 
+            class IStackMemoryManager :public IUnknown{
+            public:
+                virtual void* Push(ptr_size_t size, ptr_size_t alignment = sizeof(ptr_t)) = 0;
+                virtual void Pop(void* pointer) = 0;
+                virtual void PopAll() = 0;
+
+                template<class T>T* Push(ptr_size_t alignment = sizeof(ptr_t)){
+                    return static_cast<T*>(this->Push(sizeof(T), alignment));
+                }
+
+                template<class T>T* PushArray(ptr_size_t array_size, ptr_size_t alignment = sizeof(ptr_t)){
+                    return static_cast<T*>(this->Push(sizeof(T) * array_size, alignment));
+                }
+            };
         }
     }
 
@@ -84,6 +98,10 @@ namespace EVOLUTION{
         //メモリマネージャー外の確保したメモリを渡す
         extern RESULT CreateDynamicMemoryManager(CORE::MEMORY::IDynamicMemoryManager** memory_manager, ptr_t pointer, ptr_size_t size);
 
+        //メモリマネージャー外の確保したメモリを渡す
+        extern RESULT CreateStackMemoryManager(CORE::MEMORY::IStackMemoryManager** memory_manager, ptr_size_t size);
+        //メモリマネージャー外の確保したメモリを渡す
+        extern RESULT CreateStackMemoryManager(CORE::MEMORY::IStackMemoryManager** memory_manager, ptr_t pointer, ptr_size_t size);
     }
 
     namespace EVOLUTION_GUID{
@@ -98,6 +116,10 @@ namespace EVOLUTION{
         // {DA7EC383-E035-4071-9AA0-D4B90EB271D1}
         static const EVOLUTION_IID IID_IStaticMemoryManager =
         { 0xda7ec383, 0xe035, 0x4071, { 0x9a, 0xa0, 0xd4, 0xb9, 0xe, 0xb2, 0x71, 0xd1 } };
+
+        // {3EA7C376-F537-40e9-8C6A-3EF82B77DF0E}
+        static const EVOLUTION_IID IID_IStackMemoryManager =
+        { 0x3ea7c376, 0xf537, 0x40e9, { 0x8c, 0x6a, 0x3e, 0xf8, 0x2b, 0x77, 0xdf, 0xe } };
 
     }
 
