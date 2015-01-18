@@ -124,11 +124,11 @@ ApplicationCounter::ApplicationCounter(){
 
 }
 ApplicationCounter::~ApplicationCounter(){
-
+    timeEndPeriod(1);
 }
 
 RESULT ApplicationCounter::Create(){
-
+    timeBeginPeriod(1);
     //アプリケーション起動時間を測定
     this->m_start = timeGetTime();
 

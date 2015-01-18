@@ -65,7 +65,8 @@ namespace EVOLUTION{
                 u32 m_stop_time;
                 bool m_start;
 
-                static IApplicationCounter* sp_app_counter;
+                IApplicationCounter* mp_application_counter;
+
             public:
                 //IUnknown
                 u32 AddRef();
