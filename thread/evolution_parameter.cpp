@@ -54,7 +54,7 @@ Parameter::Parameter() : m_parameter_count(0), mp_parameter(nullptr)
 Parameter::~Parameter(){
     for (size_t i = 0; i < this->m_parameter_count; i++)
     {
-        void* ptr = (void*)this->mp_parameter[i].pointer;
+        u8* ptr = (u8*)this->mp_parameter[i].pointer;
         this->mp_parameter[i].pointer = 0;
         EVOLUTION_DELETE(ptr);
     }
