@@ -213,7 +213,7 @@ void ThreadPool::Execute(u32 sleep_ms_time){
                 }
                 EVOLUTION_DISABLED_STATE(workthread->m_pool_write_thread_read_flg, THREAD_POOL_FLAG::END);
             }
-            continue;
+            //continue;
         }
         ++f;
     }
@@ -240,9 +240,14 @@ s32 ThreadPool::TaskExecuteCount()const{
 //タスクのキューに積む
 void ThreadPool::PushTask(ITask* task, IParameter* parameter){
     HANDLE handle  = this->mp_mutex->Lock();
-    parameter->AddRef();
+
+    this->mp_taskinfo_queue_last->parameter = nullptr;
+    if (parameter)
+    {
+        parameter->AddRef();
+        this->mp_taskinfo_queue_last->parameter = parameter;
+    }
     this->mp_taskinfo_queue_last->task = task;
-    this->mp_taskinfo_queue_last->parameter = parameter;
     this->mp_taskinfo_queue_last++;
     u32 count = this->mp_taskinfo_queue_last - this->mp_taskinfo_queue_root;
     //ラストまで行っていた場合最初に戻す
