@@ -1,15 +1,15 @@
 #ifndef __EVOLUTION_TEMPLATE_H_
 #define __EVOLUTION_TEMPLATE_H_
 
-//ƒVƒ“ƒOƒ‹ƒgƒ“‚ğ¶¬‚·‚éƒNƒ‰ƒX
+//ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚’ç”Ÿæˆã™ã‚‹ã‚¯ãƒ©ã‚¹
 #include "evolution_singleton.h"
 
-//”z—ñ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+//é…åˆ—ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 #include "evolution_array.h"
 
 //vector
 #include "evolution_vector.h"
 
-//ƒŠƒXƒg
+//ãƒªã‚¹ãƒˆ
 #include "evolution_list.h"
 #endif //!__EVOLUTION_TEMPLATE_H_

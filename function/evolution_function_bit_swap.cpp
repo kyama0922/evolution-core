@@ -4,15 +4,15 @@ using namespace EVOLUTION;
 using namespace EVOLUTION::FUNCTION;
 
 
-//16bit‚Ìƒrƒbƒg“ü‚ê‘Ö‚¦‚éƒŠƒgƒ‹ƒGƒfƒBƒAƒ“<==>ƒrƒbƒOƒGƒ“ƒfƒBƒAƒ“
+//16bitã®ãƒ“ãƒƒãƒˆå…¥ã‚Œæ›¿ãˆã‚‹ãƒªãƒˆãƒ«ã‚¨ãƒ‡ã‚£ã‚¢ãƒ³<==>ãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³
 u16 EVOLUTION::FUNCTION::BitSwap(u16 val){
     return ((val >> 8) & 0x00ff) | ((val << 8) & 0xff00);
 }
-//32bit‚Ìƒrƒbƒg“ü‚ê‘Ö‚¦‚éƒŠƒgƒ‹ƒGƒfƒBƒAƒ“<==>ƒrƒbƒOƒGƒ“ƒfƒBƒAƒ“
+//32bitã®ãƒ“ãƒƒãƒˆå…¥ã‚Œæ›¿ãˆã‚‹ãƒªãƒˆãƒ«ã‚¨ãƒ‡ã‚£ã‚¢ãƒ³<==>ãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³
 u32 EVOLUTION::FUNCTION::BitSwap(u32 val){
     return ((val << 24) & 0xff000000) | ((val << 8) & 0x00ff0000) | ((val >> 8) & 0x0000ff00) | ((val >> 24) & 0x000000ff);
 }
-//64bit‚Ìƒrƒbƒg“ü‚ê‘Ö‚¦‚éƒŠƒgƒ‹ƒGƒfƒBƒAƒ“<==>ƒrƒbƒOƒGƒ“ƒfƒBƒAƒ“
+//64bitã®ãƒ“ãƒƒãƒˆå…¥ã‚Œæ›¿ãˆã‚‹ãƒªãƒˆãƒ«ã‚¨ãƒ‡ã‚£ã‚¢ãƒ³<==>ãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³
 u64 EVOLUTION::FUNCTION::BitSwap(u64 val){
     return ((val << 56) & 0xFF00000000000000) | ((val << 40) & 0x00FF000000000000) | ((val << 24) & 0x0000FF0000000000) | ((val << 8) & 0x000000FF00000000) | ((val >> 8) & 0x00000000FF000000) | ((val >> 24) & 0x0000000000FF0000) | ((val >> 40) & 0x000000000000FF00) | ((val >> 56) & 0x00000000000000FF);
 }

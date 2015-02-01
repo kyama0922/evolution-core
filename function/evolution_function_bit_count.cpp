@@ -8,7 +8,7 @@ using namespace EVOLUTION::FUNCTION;
 // SSE4
 #  include <smmintrin.h>
 #include <intrin.h>
-//8bitのビット数を数える
+//8bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u8 EVOLUTION::FUNCTION::BitCount8(u8 val){
 #if defined(_X32)
     return  _mm_popcnt_u32(val);
@@ -17,7 +17,7 @@ u8 EVOLUTION::FUNCTION::BitCount8(u8 val){
 #endif
 }
 
-//16bitのビット数を数える
+//16bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u16 EVOLUTION::FUNCTION::BitCount16(u16 val){
 #if defined(_X32)
     return  _mm_popcnt_u32(val);
@@ -26,7 +26,7 @@ u16 EVOLUTION::FUNCTION::BitCount16(u16 val){
 #endif
 }
 
-//32bitのビット数を数える
+//32bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u32 EVOLUTION::FUNCTION::BitCount32(u32 val){
 #if defined(_X32)
     return  _mm_popcnt_u32(val);
@@ -35,7 +35,7 @@ u32 EVOLUTION::FUNCTION::BitCount32(u32 val){
 #endif
 }
 
-//64bitのビット数を数える
+//64bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u64 EVOLUTION::FUNCTION::BitCount16(u64 val){
     u64 num = 0;
     for (int i = 0; i < 2; i++) {
@@ -48,10 +48,10 @@ u64 EVOLUTION::FUNCTION::BitCount16(u64 val){
     return num;
 }
 #else
-// SSE4なしでSSE2
+// SSE4縺ｪ縺励〒SSE2
 #include <emmintrin.h>
 #include <intrin.h>
-//8bitのビット数を数える
+//8bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u8 EVOLUTION::FUNCTION::BitCount8(u8 val){
 #if defined(_X32)
     return  _mm_popcnt_u32(val);
@@ -60,7 +60,7 @@ u8 EVOLUTION::FUNCTION::BitCount8(u8 val){
 #endif
 }
 
-//16bitのビット数を数える
+//16bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u16 EVOLUTION::FUNCTION::BitCount16(u16 val){
 #if defined(_X32)
     return  _mm_popcnt_u32(val);
@@ -69,7 +69,7 @@ u16 EVOLUTION::FUNCTION::BitCount16(u16 val){
 #endif
 }
 
-//32bitのビット数を数える
+//32bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u32 EVOLUTION::FUNCTION::BitCount32(u32 val){
 #if defined(_X32)
     return  _mm_popcnt_u32(val);
@@ -78,7 +78,7 @@ u32 EVOLUTION::FUNCTION::BitCount32(u32 val){
 #endif
 }
 
-//64bitのビット数を数える
+//64bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u64 EVOLUTION::FUNCTION::BitCount16(u64 val){
     u64 num = 0;
     for (int i = 0; i < 2; i++) {
@@ -112,7 +112,7 @@ const int BITS_COUNT_TABLE[256] = {
     4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8,
 };
 
-//8bitのビット数を数える
+//8bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u8 EVOLUTION::FUNCTION::BitCount8(u8 val){
     u8 num = 0;
     for (int i = 0; i<sizeof(val); i++) {
@@ -121,7 +121,7 @@ u8 EVOLUTION::FUNCTION::BitCount8(u8 val){
     return num;
 }
 
-//16bitのビット数を数える
+//16bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u16 EVOLUTION::FUNCTION::BitCount16(u16 val){
     u16 num = 0;
     for (int i = 0; i<sizeof(val); i++) {
@@ -130,7 +130,7 @@ u16 EVOLUTION::FUNCTION::BitCount16(u16 val){
     return num;
 }
 
-//32bitのビット数を数える
+//32bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u32 EVOLUTION::FUNCTION::BitCount32(u32 val){
     u32 num = 0;
     for (int i = 0; i<sizeof(val); i++) {
@@ -139,7 +139,7 @@ u32 EVOLUTION::FUNCTION::BitCount32(u32 val){
     return num;
 }
 
-//64bitのビット数を数える
+//64bit縺ｮ繝薙ャ繝域焚繧呈焚縺医ｋ
 u64 EVOLUTION::FUNCTION::BitCount64(u64 val){
     u64 num = 0;
     for (int i = 0; i<sizeof(val); i++) {

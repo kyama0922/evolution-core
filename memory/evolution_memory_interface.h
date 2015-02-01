@@ -9,8 +9,8 @@ namespace EVOLUTION{
 
             struct MemoryException{
                 enum _EXCEPTION{
-                    CREATING_A_MEMORY_MANAGER_FAILURE,//ƒƒ‚ƒŠƒ}ƒl[ƒWƒƒ[‚Ìì¬¸”s
-                    CREATE_SIZE_OVER,//ì¬ŠÇ—ƒTƒCƒYˆÈã‚É‚È‚èŠm•Û‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B
+                    CREATING_A_MEMORY_MANAGER_FAILURE,//ãƒ¡ãƒ¢ãƒªãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ä½œæˆå¤±æ•—
+                    CREATE_SIZE_OVER,//ä½œæˆç®¡ç†ã‚µã‚¤ã‚ºä»¥ä¸Šã«ãªã‚Šç¢ºä¿ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚
                 };
             };
 
@@ -28,15 +28,15 @@ namespace EVOLUTION{
             class IDynamicMemoryManager : public IUnknown{
                 EVOLUTION_NOT_DESTRUCTOR(IDynamicMemoryManager);
             public:
-                //ì¬‚µ‚½Node‚Ì”
+                //ä½œæˆã—ãŸNodeã®æ•°
                 virtual ptr_size_t GetNodeNum() = 0;
-                //ƒm[ƒh‚Ìì¬
+                //ãƒãƒ¼ãƒ‰ã®ä½œæˆ
                 virtual RESULT CreateMemoryNode(IMemoryNode** memory_node, u32 size) = 0;
-                //ƒm[ƒh‚ğCompaction‚·‚é
+                //ãƒãƒ¼ãƒ‰ã‚’Compactionã™ã‚‹
                 virtual RESULT Compaction() = 0;
-                //ŠÇ—‚µ‚Ä‚éMemoryƒTƒCƒY
+                //ç®¡ç†ã—ã¦ã‚‹Memoryã‚µã‚¤ã‚º
                 virtual ptr_size_t GetHeapSize() = 0;
-                //g—p’†‚ÌMemoryƒTƒCƒY
+                //ä½¿ç”¨ä¸­ã®Memoryã‚µã‚¤ã‚º
                 virtual ptr_size_t GetUseHeapSize() = 0;
             };
 
@@ -44,29 +44,29 @@ namespace EVOLUTION{
             class IStaticMemoryManager : public IUnknown{
                 EVOLUTION_NOT_DESTRUCTOR(IStaticMemoryManager);
             public:
-                //ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒƒ‚ƒŠ‚ÌŠm•Û
+                //ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
                 virtual void* New(ptr_size_t size) = 0;
-                //ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢”z—ñƒƒ‚ƒŠ‚ÌŠm•Û
+                //ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„é…åˆ—ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
                 virtual void* NewArray(ptr_size_t size) = 0;
-                //ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒm[ƒh‚Ìì¬
+                //ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒãƒ¼ãƒ‰ã®ä½œæˆ
                 virtual void Delete(void* pointer) = 0;
-                //ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒm[ƒh‚Ìì¬
+                //ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒãƒ¼ãƒ‰ã®ä½œæˆ
                 virtual void DeleteArray(void* pointer) = 0;
-                //ŠÇ—‚µ‚Ä‚éMemoryƒTƒCƒY
+                //ç®¡ç†ã—ã¦ã‚‹Memoryã‚µã‚¤ã‚º
                 virtual ptr_size_t GetHeapSize() = 0;
-                //g—p’†‚ÌMemoryƒTƒCƒY
+                //ä½¿ç”¨ä¸­ã®Memoryã‚µã‚¤ã‚º
                 virtual ptr_size_t GetUseHeapSize() = 0;
 
-                //ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒƒ‚ƒŠ‚ÌŠm•Û
+                //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
                 virtual void* DebugNew(ptr_size_t size, const char* file_name, u32 line) = 0;
-                //ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢”z—ñƒƒ‚ƒŠ‚ÌŠm•Û
+                //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„é…åˆ—ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
                 virtual void* DebugNewArray(ptr_size_t size, const char* file_name, u32 line) = 0;
 
-                //ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒƒ‚ƒŠŠJ•ú
+                //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒ¡ãƒ¢ãƒªé–‹æ”¾
                 virtual void DebugDelete(void* pointer) = 0;
-                //ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢”z—ñƒƒ‚ƒŠŠJ•ú
+                //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„é…åˆ—ãƒ¡ãƒ¢ãƒªé–‹æ”¾
                 virtual void DebugDeleteArray(void* pointer) = 0;
-                //ƒfƒoƒbƒOŠm•Û‚³‚ê‚Ä‚¢‚éƒƒ‚ƒŠî•ñ‚ğ•\¦
+                //ãƒ‡ãƒãƒƒã‚°ç¢ºä¿ã•ã‚Œã¦ã„ã‚‹ãƒ¡ãƒ¢ãƒªæƒ…å ±ã‚’è¡¨ç¤º
                 virtual void DebugDataShow() = 0;
             };
 
@@ -88,19 +88,19 @@ namespace EVOLUTION{
     }
 
     namespace FUNCTION{
-        //ƒƒ‚ƒŠƒ}ƒl[ƒWƒƒ[‚Ìì¬
+        //ãƒ¡ãƒ¢ãƒªãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ä½œæˆ
         extern RESULT CreateTLSFStaticMemoryManager(CORE::MEMORY::IStaticMemoryManager** memory_manager, ptr_size_t size);
-        //ƒƒ‚ƒŠƒ}ƒl[ƒWƒƒ[‚Ìì¬
+        //ãƒ¡ãƒ¢ãƒªãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ä½œæˆ
         extern RESULT CreateTLSFStaticMemoryManager(CORE::MEMORY::IStaticMemoryManager** memory_manager, ptr_t pointer, ptr_size_t size);
 
-        //ƒƒ‚ƒŠƒ}ƒl[ƒWƒƒ[ŠO‚ÌŠm•Û‚µ‚½ƒƒ‚ƒŠ‚ğ“n‚·
+        //ãƒ¡ãƒ¢ãƒªãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å¤–ã®ç¢ºä¿ã—ãŸãƒ¡ãƒ¢ãƒªã‚’æ¸¡ã™
         extern RESULT CreateDynamicMemoryManager(CORE::MEMORY::IDynamicMemoryManager** memory_manager, ptr_size_t size);
-        //ƒƒ‚ƒŠƒ}ƒl[ƒWƒƒ[ŠO‚ÌŠm•Û‚µ‚½ƒƒ‚ƒŠ‚ğ“n‚·
+        //ãƒ¡ãƒ¢ãƒªãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å¤–ã®ç¢ºä¿ã—ãŸãƒ¡ãƒ¢ãƒªã‚’æ¸¡ã™
         extern RESULT CreateDynamicMemoryManager(CORE::MEMORY::IDynamicMemoryManager** memory_manager, ptr_t pointer, ptr_size_t size);
 
-        //ƒƒ‚ƒŠƒ}ƒl[ƒWƒƒ[ŠO‚ÌŠm•Û‚µ‚½ƒƒ‚ƒŠ‚ğ“n‚·
+        //ãƒ¡ãƒ¢ãƒªãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å¤–ã®ç¢ºä¿ã—ãŸãƒ¡ãƒ¢ãƒªã‚’æ¸¡ã™
         extern RESULT CreateStackMemoryManager(CORE::MEMORY::IStackMemoryManager** memory_manager, ptr_size_t size);
-        //ƒƒ‚ƒŠƒ}ƒl[ƒWƒƒ[ŠO‚ÌŠm•Û‚µ‚½ƒƒ‚ƒŠ‚ğ“n‚·
+        //ãƒ¡ãƒ¢ãƒªãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å¤–ã®ç¢ºä¿ã—ãŸãƒ¡ãƒ¢ãƒªã‚’æ¸¡ã™
         extern RESULT CreateStackMemoryManager(CORE::MEMORY::IStackMemoryManager** memory_manager, ptr_t pointer, ptr_size_t size);
     }
 

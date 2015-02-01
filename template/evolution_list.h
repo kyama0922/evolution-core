@@ -6,7 +6,7 @@
 namespace EVOLUTION{
 	namespace TEMPLATE{
 
-		//‡˜ƒRƒ“ƒeƒi
+		//é †åºã‚³ãƒ³ãƒ†ãƒŠ
 		template<class T>
 		class List{
 		public:
@@ -15,7 +15,7 @@ namespace EVOLUTION{
 				Node* mp_next;
 				Node* mp_back;
 			};
-			//ƒCƒeƒŒ[ƒ^[
+			//ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ãƒ¼
 			class Iterator{
 				friend List;
 			private:
@@ -168,11 +168,11 @@ namespace EVOLUTION{
 				}
 			};
 		private:
-			u32 m_size; //ƒTƒCƒY
-			Iterator m_first;//æ“ªƒm[ƒh
-			Iterator m_last;//ƒ‰ƒXƒgƒm[ƒh
-			Iterator m_end;//ƒGƒ“ƒhƒ|ƒCƒ“ƒ^
-			Node* mp_end_node;//ƒGƒ“ƒhƒm[ƒh
+			u32 m_size; //ã‚µã‚¤ã‚º
+			Iterator m_first;//å…ˆé ­ãƒãƒ¼ãƒ‰
+			Iterator m_last;//ãƒ©ã‚¹ãƒˆãƒãƒ¼ãƒ‰
+			Iterator m_end;//ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ã‚¿
+			Node* mp_end_node;//ã‚¨ãƒ³ãƒ‰ãƒãƒ¼ãƒ‰
 		public:
 			List() :m_size(0){
 				mp_end_node = NEW Node;
@@ -188,17 +188,17 @@ namespace EVOLUTION{
 				EVOLUTION_DELETE(mp_end_node);
 			}
 
-            //ÅI—v‘f‚Ìæ“¾
+            //æœ€çµ‚è¦ç´ ã®å–å¾—
 			T back(){
 				return this->m_last.mp_node->item;
 			}
 
-            //æ“ª‚ÌƒCƒeƒŒ[ƒ^[‚Ìæ“¾
+            //å…ˆé ­ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ãƒ¼ã®å–å¾—
 			Iterator begin()const{
 				return this->m_first;
 			}
             
-            //ƒm[ƒh‚Ìíœ
+            //ãƒãƒ¼ãƒ‰ã®å‰Šé™¤
 			void clear(){
 				while (this->m_size)
 				{
@@ -215,17 +215,17 @@ namespace EVOLUTION{
 				this->m_last.mp_node = this->m_end.mp_node;
 			}
 
-            //ƒRƒ“ƒeƒi‚ª‹ó‚©‚Ç‚¤‚©
+            //ã‚³ãƒ³ãƒ†ãƒŠãŒç©ºã‹ã©ã†ã‹
 			bool empty()const{
 				return this->m_size == 0;
 			}
 
-            //EndƒCƒeƒŒ[ƒ^[
+            //Endã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ãƒ¼
 			const Iterator& end()const{
 				return this->m_end;
 			}
 
-            //ƒm[ƒh‚Ìíœ
+            //ãƒãƒ¼ãƒ‰ã®å‰Šé™¤
 			Iterator erase(Iterator pos){
 				if (pos.mp_node->mp_next == &this->m_end_node)
 				{
@@ -252,7 +252,7 @@ namespace EVOLUTION{
 				return Iterator(node);
 			}
 
-            //ƒm[ƒh‚Ìíœ
+            //ãƒãƒ¼ãƒ‰ã®å‰Šé™¤
 			Iterator erase(Iterator start, Iterator end){
 				Iterator it;
 				if (start <= end)
@@ -273,12 +273,12 @@ namespace EVOLUTION{
 				return it;
 			}
 
-            //æ“ª‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìæ“¾
+            //å…ˆé ­ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å–å¾—
 			T front(){
 				return this->m_first.mp_node->item;
 			}
 
-            //ÅI—v‘f‚ğíœ‚·‚éB
+            //æœ€çµ‚è¦ç´ ã‚’å‰Šé™¤ã™ã‚‹ã€‚
 			void pop_back(){
 				if (this->m_size == 0)
 				{
@@ -294,7 +294,7 @@ namespace EVOLUTION{
 
 			}
 
-            //æ“ª—v‘f‚ğíœ‚·‚éB 
+            //å…ˆé ­è¦ç´ ã‚’å‰Šé™¤ã™ã‚‹ã€‚ 
 			void pop_front(){
 				if (this->m_size == 0)
 				{
@@ -309,7 +309,7 @@ namespace EVOLUTION{
 				this->m_size--;
 			}
 
-            //––”ö‚É item ‚ğ’Ç‰Á‚·‚é
+            //æœ«å°¾ã« item ã‚’è¿½åŠ ã™ã‚‹
 			void push_back(const T& item){
 				Node* node = NEW Node;
 				node->item = item;
@@ -331,7 +331,7 @@ namespace EVOLUTION{
 				this->m_size++;
 			}
 
-            //æ“ª‚É item ‚ğ’Ç‰Á‚·‚é
+            //å…ˆé ­ã« item ã‚’è¿½åŠ ã™ã‚‹
 			void push_front(const T& item){
 				Node* node = NEW Node;
 				node->item = item;
@@ -354,12 +354,12 @@ namespace EVOLUTION{
 			}
 
 
-            //ƒŠƒXƒg‚ÌƒTƒCƒY
+            //ãƒªã‚¹ãƒˆã®ã‚µã‚¤ã‚º
             u32 size(){
 				return this->m_size;
 			}
 
-            //ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌŒğŠ·
+            //ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®äº¤æ›
 			void swap(List& list){
 				Node* end_node = this->mp_end_node;
 				this->mp_end_node = list.mp_end_node;

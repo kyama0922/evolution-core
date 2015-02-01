@@ -8,41 +8,41 @@ namespace EVOLUTION{
     namespace CORE{
         namespace TIMER{
 
-            //ˆê”Ô‚Í‚¶‚ß‚Éì¬‚µ‚½ŠÔ‚©‚çŒv‘ª‚³‚ê‚Ü‚·
+            //ä¸€ç•ªã¯ã˜ã‚ã«ä½œæˆã—ãŸæ™‚é–“ã‹ã‚‰è¨ˆæ¸¬ã•ã‚Œã¾ã™
             class IApplicationCounter : public IUnknown{
                 EVOLUTION_NOT_DESTRUCTOR(IApplicationCounter);
             public:
-                //ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ªŠJn‚µ‚Ä‚©‚ç‚ÌŒo‰ßŠÔ
+                //ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒé–‹å§‹ã—ã¦ã‹ã‚‰ã®çµŒéæ™‚é–“
                 virtual u64 GetMilliSecondU64()const = 0;
-                //ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ªŠJn‚µ‚Ä‚©‚ç‚ÌŒo‰ßŠÔ
+                //ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒé–‹å§‹ã—ã¦ã‹ã‚‰ã®çµŒéæ™‚é–“
                 virtual u32 GetMilliSecondU32()const = 0;
             };
 
-            //ƒXƒgƒbƒvƒEƒHƒbƒ`ƒNƒ‰ƒX
+            //ã‚¹ãƒˆãƒƒãƒ—ã‚¦ã‚©ãƒƒãƒã‚¯ãƒ©ã‚¹
             class IStopWatch : public IUnknown{
                 EVOLUTION_NOT_DESTRUCTOR(IStopWatch);
             public:
-                //“®‚©‚·
+                //å‹•ã‹ã™
                 virtual void Start() = 0;
-                //’â~
+                //åœæ­¢
                 virtual void Stop() = 0;
-                //ˆê’â~
+                //ä¸€æ™‚åœæ­¢
                 virtual void Pause() = 0;
-                //ÄŠJ
+                //å†é–‹
                 virtual void RePause() = 0;
-                //“®‚©‚µ‚Ä‚¢‚é
+                //å‹•ã‹ã—ã¦ã„ã‚‹
                 virtual bool IsStart()const = 0;
 
-                //Œ»İŠÔ‚Ìæ“¾(millisecond)
+                //ç¾åœ¨æ™‚é–“ã®å–å¾—(millisecond)
                 virtual u32 GetMilliSecondU32()const = 0;
-                //Œ»İŠÔ‚Ìæ“¾(second)
+                //ç¾åœ¨æ™‚é–“ã®å–å¾—(second)
                 virtual u32 GetSecondU32()const = 0;
             };
         }
     }
 
     namespace FUNCTION{
-        //ì¬‚µ‚½ŠÔ‚©‚çŒv‘ª‚³‚ê‚Ü‚·
+        //ä½œæˆã—ãŸæ™‚é–“ã‹ã‚‰è¨ˆæ¸¬ã•ã‚Œã¾ã™
         EVOLUTION::RESULT CreateApplicationCounter(CORE::TIMER::IApplicationCounter** pp_application_counter);
         EVOLUTION::RESULT CreateStopWatch(CORE::TIMER::IStopWatch** pp_stop_watch);
     }

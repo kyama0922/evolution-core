@@ -5,136 +5,137 @@ using namespace EVOLUTION::CORE;
 using namespace EVOLUTION::CORE::FILE;
 
 //IUnknown
-u32 FileRead::AddRef(){
+
+u32 FileRead::AddRef() {
     return m_instance_counter.AddRef();
 }
 
-RESULT FileRead::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
-    {
-        *ppvObject = static_cast<IUnknown*>(this);
+RESULT FileRead::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject) {
+    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown)) {
+        *ppvObject = static_cast<IUnknown*> (this);
         this->AddRef();
-    }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile))
-    {
-        *ppvObject = static_cast<IFile*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile)) {
+        *ppvObject = static_cast<IFile*> (this);
         this->AddRef();
-    }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileRead))
-    {
-        *ppvObject = static_cast<IFileRead*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileRead)) {
+        *ppvObject = static_cast<IFileRead*> (this);
         this->AddRef();
-    }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_FileRead))
-    {
-        *ppvObject = static_cast<FileRead*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_FileRead)) {
+        *ppvObject = static_cast<FileRead*> (this);
         this->AddRef();
-    }
-    else
-    {
+    } else {
         *ppvObject = nullptr;
-        return RESULT::E_no_instance;
+        return _RESULT::E_no_instance;
     }
 
-    return RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
-u32 FileRead::Release(){
+u32 FileRead::Release() {
     u32 counter = this->m_instance_counter.Release();
-    if (counter == 0){
+    if (counter == 0) {
         delete this;
     }
     return counter;
 }
 
-FileRead::FileRead():mp_fp(nullptr){
+FileRead::FileRead() : mp_fp(nullptr) {
 
 }
 
-FileRead::~FileRead(){
-    if (this->mp_fp)
-    {
+FileRead::~FileRead() {
+    if (this->mp_fp) {
         fclose(this->mp_fp);
     }
-    EVOLUTION_DELETE_ARRAY(this->mp_file_name);
+    c8* ptr = (c8*)this->mp_file_name;
+    this->mp_file_name = nullptr;
+    EVOLUTION_DELETE_ARRAY(ptr);
 }
 
-RESULT FileRead::Create(const c8* filename){
+RESULT FileRead::Create(const c8* filename) {
     u32 file_name_length = FUNCTION::Strlen(filename);
     this->mp_file_name = new c8[file_name_length + 1];
 
     //strcopy
     const c8* s = filename;
     c8* d = (c8*)this->mp_file_name;
-    while (*d++ = *s++){}
-
-    fopen_s(&this->mp_fp, (c8*) this->mp_file_name, "rb");
-    if (this->mp_fp == nullptr)
-    {
-        return  _RESULT::E_unknown;
+    while (*d++ = *s++) {
     }
-    return  _RESULT::S_ok;
+
+    this->mp_fp = fopen((c8*) this->mp_file_name, "rb");
+    if (this->mp_fp == nullptr) {
+        return _RESULT::E_unknown;
+    }
+    return _RESULT::S_ok;
 }
 
-RESULT FileRead::Create(const c16* filename){
+RESULT FileRead::Create(const c16* filename) {
     u32 file_name_length = FUNCTION::Strlen(filename);
     this->mp_file_name = new c8[file_name_length + 1];
 
-    //strcopy
-    const c16* s = filename;
-    c16* d = (c16*)this->mp_file_name;
-    while (*d++ = *s++){}
-    _wfopen_s(&this->mp_fp, (c16*) this->mp_file_name, L"rb");
-    if (this->mp_fp == nullptr)
-    {
-        return  _RESULT::E_unknown;
+    wcstombs((c8*)this->mp_file_name, filename, file_name_length);
+    this->mp_fp = fopen((c8*) this->mp_file_name, "rb");
+
+    if (this->mp_fp == nullptr) {
+        return _RESULT::E_unknown;
     }
-    return  _RESULT::S_ok;
+
+
+    return _RESULT::S_ok;
 }
 
-//ƒtƒ@ƒCƒ‹‚ÌƒTƒCƒY‚ÌŽæ“¾
-u64 FileRead::GetFileSize()const{
-    fpos_t now_pos = this->GetPos();
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚µã‚¤ã‚ºã®å–å¾—
+
+u64 FileRead::GetFileSize()const {
+    u64 now_pos = this->GetPos();
     fseek(this->mp_fp, 0, SEEK_END);
-    fpos_t file_size = this->GetPos();
+    u64 file_size = this->GetPos();
     this->SetPos(now_pos);
     return file_size;
 }
 
-//ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ðÝ’è
-void FileRead::SetPos(const u64& index)const{
-    fsetpos(this->mp_fp, (fpos_t*)&index);
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’è¨­å®š
+
+void FileRead::SetPos(const u64& index)const {
+    fpos64_t pos;
+    pos.__pos = index;
+    fsetpos64(this->mp_fp, (fpos64_t*) & pos);
 }
 
-//ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ðŽæ“¾
-u64 FileRead::GetPos()const{
-    fpos_t pos;
-    fgetpos(this->mp_fp, &pos);
-    return pos;
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’å–å¾—
+
+u64 FileRead::GetPos()const {
+    fpos64_t pos;
+    fgetpos64(this->mp_fp, &pos);
+    return pos.__pos;
 }
 
-//ƒtƒ@ƒCƒ‹‚ÌI’[Šm”F
-bool FileRead::IsEof()const{
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®çµ‚ç«¯ç¢ºèª
+
+bool FileRead::IsEof()const {
     return feof(this->mp_fp) == 0;
 }
 
-//ƒtƒ@ƒCƒ‹‚ðƒtƒ‰ƒbƒVƒ…‚µ‚Ü‚·B
-void FileRead::Flash(){
-    if (this->mp_fp){
+//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã—ã¾ã™ã€‚
+
+void FileRead::Flash() {
+    if (this->mp_fp) {
         fflush(this->mp_fp);
     }
 }
 
-//ƒtƒ@ƒCƒ‹‚ð•Â‚¶‚é
-void FileRead::Close(){
-    if (this->mp_fp){
+//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
+
+void FileRead::Close() {
+    if (this->mp_fp) {
         fclose(this->mp_fp);
     }
     this->mp_fp = nullptr;
 }
 
-//ƒf[ƒ^‚Ì“Ç‚Ýž‚Ý
-s32 FileRead::Read(void* data, u32 length)const{
+//ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
+
+s32 FileRead::Read(void* data, u32 length)const {
     return fread(data, 1, length, this->mp_fp);
 }
 
@@ -143,141 +144,141 @@ s32 FileRead::Read(void* data, u32 length)const{
 //---------------------------------------------
 
 //IUnknown
-u32 TextFileRead::AddRef(){
+
+u32 TextFileRead::AddRef() {
     return m_instance_counter.AddRef();
 }
 
-RESULT TextFileRead::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
-    {
-        *ppvObject = static_cast<IUnknown*>(this);
+RESULT TextFileRead::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject) {
+    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown)) {
+        *ppvObject = static_cast<IUnknown*> (this);
         this->AddRef();
-    }
-        else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile))
-    {
-        *ppvObject = static_cast<IFile*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile)) {
+        *ppvObject = static_cast<IFile*> (this);
         this->AddRef();
-    }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileRead))
-    {
-        *ppvObject = static_cast<IFileRead*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileRead)) {
+        *ppvObject = static_cast<IFileRead*> (this);
         this->AddRef();
-    }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_TextFileRead))
-    {
-        *ppvObject = static_cast<TextFileRead*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_TextFileRead)) {
+        *ppvObject = static_cast<TextFileRead*> (this);
         this->AddRef();
-    }
-    else
-    {
+    } else {
         *ppvObject = nullptr;
-        return RESULT::E_no_instance;
+        return _RESULT::E_no_instance;
     }
 
-    return RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
-u32 TextFileRead::Release(){
+u32 TextFileRead::Release() {
     u32 counter = this->m_instance_counter.Release();
-    if (counter == 0){
+    if (counter == 0) {
         delete this;
     }
     return counter;
 }
 
-
-TextFileRead::TextFileRead() :mp_fp(nullptr){
+TextFileRead::TextFileRead() : mp_fp(nullptr) {
 
 }
 
-TextFileRead::~TextFileRead(){
-    if (this->mp_fp)
-    {
+TextFileRead::~TextFileRead() {
+    if (this->mp_fp) {
         fclose(this->mp_fp);
     }
-    EVOLUTION_DELETE_ARRAY(this->mp_file_name);
+    c8* ptr = (c8*)this->mp_file_name;
+    this->mp_file_name = nullptr;
+    EVOLUTION_DELETE_ARRAY(ptr);
 }
 
-RESULT TextFileRead::Create(const c8* filename){
+RESULT TextFileRead::Create(const c8* filename) {
     u32 file_name_length = FUNCTION::Strlen(filename);
     this->mp_file_name = new c8[file_name_length + 1];
 
     //strcopy
     const c8* s = filename;
     c8* d = (c8*)this->mp_file_name;
-    while (*d++ = *s++){}
-
-    fopen_s(&this->mp_fp, (c8*) this->mp_file_name, "r");
-    if (this->mp_fp == nullptr)
-    {
-        return  _RESULT::E_unknown;
+    while (*d++ = *s++) {
     }
-    return  _RESULT::S_ok;
+
+    this->mp_fp = fopen((c8*) this->mp_file_name, "r");
+
+
+    if (this->mp_fp == nullptr) {
+        return _RESULT::E_unknown;
+    }
+    return _RESULT::S_ok;
 }
 
-RESULT TextFileRead::Create(const c16* filename){
+RESULT TextFileRead::Create(const c16* filename) {
     u32 file_name_length = FUNCTION::Strlen(filename);
     this->mp_file_name = new c8[file_name_length + 1];
 
-    //strcopy
-    const c16* s = filename;
-    c16* d = (c16*)this->mp_file_name;
-    while (*d++ = *s++){}
-    _wfopen_s(&this->mp_fp, (c16*) this->mp_file_name, L"r");
-    if (this->mp_fp == nullptr)
-    {
-        return  _RESULT::E_unknown;
+    wcstombs((c8*)this->mp_file_name, filename, file_name_length);
+    this->mp_fp = fopen((c8*) this->mp_file_name, "r");
+
+    if (this->mp_fp == nullptr) {
+        return _RESULT::E_unknown;
     }
-    return  _RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
-//ƒtƒ@ƒCƒ‹‚ÌƒTƒCƒY‚ÌŽæ“¾
-u64 TextFileRead::GetFileSize()const{
-    fpos_t now_pos = this->GetPos();
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚µã‚¤ã‚ºã®å–å¾—
+
+u64 TextFileRead::GetFileSize()const {
+    u64 now_pos = this->GetPos();
     fseek(this->mp_fp, 0, SEEK_END);
-    fpos_t file_size = this->GetPos();
+    u64 file_size = this->GetPos();
     this->SetPos(now_pos);
     return file_size;
 }
 
-//ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ðÝ’è
-void TextFileRead::SetPos(const u64& index)const{
-    fsetpos(this->mp_fp, (fpos_t*)&index);
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’è¨­å®š
+
+void TextFileRead::SetPos(const u64& index)const {
+    fpos64_t pos;
+    pos.__pos = index;
+    fsetpos64(this->mp_fp, (fpos64_t*) & pos);
 }
 
-//ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ðŽæ“¾
-u64 TextFileRead::GetPos()const{
-    fpos_t pos;
-    fgetpos(this->mp_fp, &pos);
-    return pos;
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’å–å¾—
+
+u64 TextFileRead::GetPos()const {
+    fpos64_t pos;
+    fgetpos64(this->mp_fp, &pos);
+    return pos.__pos;
 }
 
-//ƒtƒ@ƒCƒ‹‚ÌI’[Šm”F
-bool TextFileRead::IsEof()const{
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®çµ‚ç«¯ç¢ºèª
+
+bool TextFileRead::IsEof()const {
     return feof(this->mp_fp) == 0;
 }
 
-//ƒtƒ@ƒCƒ‹‚ðƒtƒ‰ƒbƒVƒ…‚µ‚Ü‚·B
-void TextFileRead::Flash(){
-    if (this->mp_fp){
+//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã—ã¾ã™ã€‚
+
+void TextFileRead::Flash() {
+    if (this->mp_fp) {
         fflush(this->mp_fp);
     }
 }
 
-//ƒtƒ@ƒCƒ‹‚ð•Â‚¶‚é
-void TextFileRead::Close(){
-    if (this->mp_fp){
+//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
+
+void TextFileRead::Close() {
+    if (this->mp_fp) {
         fclose(this->mp_fp);
     }
     this->mp_fp = nullptr;
 }
 
-//ƒf[ƒ^‚Ì“Ç‚Ýž‚Ý
-s32 TextFileRead::Read(void* data, u32 length)const{
+//ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
+
+s32 TextFileRead::Read(void* data, u32 length)const {
     return fread(data, 1, length, this->mp_fp);
 }
 
-s32 TextFileRead::Gets(c8* text_buffer, u32 length)const{
+s32 TextFileRead::Gets(c8* text_buffer, u32 length)const {
     c8* buffer = fgets(text_buffer, length, this->mp_fp);
     return (buffer != nullptr) ? strlen(buffer) : 0;
 }

@@ -14,18 +14,18 @@ using namespace EVOLUTION::CORE;
 LogFile::LogFile(const char* file_path){
     this->file_path = NEW char[strlen(file_path) + 1];
 
-    //ファイルパスコピー
+    //繝輔ぃ繧､繝ｫ繝代せ繧ｳ繝斐�ｼ
     const char* s = file_path;
     char* d = this->file_path;
     while (*d++ = *s++){}
 
     time_t timer;
-    fopen_s(&this->fp, this->file_path, "a");
+    this->fp = fopen(this->file_path, "a");
 
     time(&timer);
     char time_str[64];
-    ctime_s(time_str, 64, &timer);
-    fprintf_s(this->fp, "%s : LogStart\n", time_str);
+    ctime_r( &timer , time_str);
+    fprintf(this->fp, "%s : LogStart\n", time_str);
 }
 
 LogFile::~LogFile(){
@@ -36,11 +36,11 @@ LogFile::~LogFile(){
 }
 
 void LogFile::Write(const char* message){
-    fprintf_s(this->fp, "%s\n", message);
+    fprintf(this->fp, "%s\n", message);
 }
 
 void LogFile::WriteAndSave(const char* message){
-    fprintf_s(this->fp, "%s\n", message);
+    fprintf(this->fp, "%s\n", message);
     fflush(this->fp);
 }
 

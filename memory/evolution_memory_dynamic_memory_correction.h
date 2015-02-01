@@ -9,17 +9,17 @@ namespace EVOLUTION{
 
             typedef ptr_t MemoryHandler;
 
-            //ÅI“I‚Éƒnƒ“ƒhƒ‰‚É“n‚³‚ê‚é’l
+            //æœ€çµ‚çš„ã«ãƒãƒ³ãƒ‰ãƒ©ã«æ¸¡ã•ã‚Œã‚‹å€¤
             struct MemoryHeader{
-                //ƒ|ƒCƒ“ƒ^[
+                //ãƒã‚¤ãƒ³ã‚¿ãƒ¼
                 ptr_t pointer;
-                //ƒƒ‚ƒŠƒTƒCƒY
+                //ãƒ¡ãƒ¢ãƒªã‚µã‚¤ã‚º
                 u32 size;
                 //---------------------------------------------------------------------------
-                //L: Lockƒtƒ‰ƒbƒO(bit)
-                //N: BlockNumber(®”)(MAX:65536)
-                //B: ƒuƒƒbƒNŽg—p”Ô’n(®”)(HIGH:LOW)(0:0) = 0 (1:1) = 5 (5:4) = 20 (7:4) = 32
-                //0: –¢Žg—p
+                //L: Lockãƒ•ãƒ©ãƒƒã‚°(bit)
+                //N: BlockNumber(æ•´æ•°)(MAX:65536)
+                //B: ãƒ–ãƒ­ãƒƒã‚¯ä½¿ç”¨ç•ªåœ°(æ•´æ•°)(HIGH:LOW)(0:0) = 0 (1:1) = 5 (5:4) = 20 (7:4) = 32
+                //0: æœªä½¿ç”¨
                 // | NNNN NNNN | NNNN NNNN | BBBB BBBB | 0000 000L |
                 //---------------------------------------------------------------------------
                 u32 flg;
@@ -51,7 +51,7 @@ namespace EVOLUTION{
             class DynamicMemoryManager : public IDynamicMemoryManager{
             private:
 
-                //ƒƒ‚ƒŠƒv[ƒ‹î•ñ
+                //ãƒ¡ãƒ¢ãƒªãƒ—ãƒ¼ãƒ«æƒ…å ±
                 struct MemoryPool{
                     ptr_t pointer;
                     ptr_size_t size;
@@ -79,20 +79,20 @@ namespace EVOLUTION{
                 DynamicMemoryManager(ptr_t pointer, ptr_size_t size);
                 ~DynamicMemoryManager();
 
-                //ì¬‚µ‚½Node‚Ì”
+                //ä½œæˆã—ãŸNodeã®æ•°
                 ptr_size_t GetNodeNum();
-                //ƒm[ƒh‚Ìì¬
+                //ãƒŽãƒ¼ãƒ‰ã®ä½œæˆ
                 RESULT CreateMemoryNode(IMemoryNode** memory_node, ptr_size_t size);
-                //ƒm[ƒh‚ðCompaction‚·‚é
+                //ãƒŽãƒ¼ãƒ‰ã‚’Compactionã™ã‚‹
                 RESULT Compaction();
-                //ŠÇ—‚µ‚Ä‚éMemoryƒTƒCƒY
+                //ç®¡ç†ã—ã¦ã‚‹Memoryã‚µã‚¤ã‚º
                 ptr_size_t GetHeapSize();
-                //Žg—p’†‚ÌMemoryƒTƒCƒY
+                //ä½¿ç”¨ä¸­ã®Memoryã‚µã‚¤ã‚º
                 ptr_size_t GetUseHeapSize();
 
-                //ƒm[ƒhƒRƒ“ƒpƒNƒVƒ‡ƒ“ƒƒbƒN
+                //ãƒŽãƒ¼ãƒ‰ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ãƒ­ãƒƒã‚¯
                 RESULT LockNodeResistor(IMemoryNode* node);
-                //ƒm[ƒhƒRƒ“ƒpƒNƒVƒ‡ƒ“ƒAƒ“ƒƒbƒN
+                //ãƒŽãƒ¼ãƒ‰ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
                 RESULT UnLockNodeResistor(IMemoryNode* node);
             };
         

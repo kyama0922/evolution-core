@@ -1,10 +1,10 @@
 #ifndef __EVOLUTION_THREAD_H__
 #define __EVOLUTION_THREAD_H__
 
-//ƒXƒŒƒbƒhƒŠƒUƒ‹ƒg
+//ã‚¹ãƒ¬ãƒƒãƒ‰ãƒªã‚¶ãƒ«ãƒˆ
 #include "evolution_thread_result.h"
 
-//ƒXƒŒƒbƒhƒCƒ“ƒ^[ƒtƒFƒCƒX
+//ã‚¹ãƒ¬ãƒƒãƒ‰ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 #include "evolution_thread_interface.h"
 
 

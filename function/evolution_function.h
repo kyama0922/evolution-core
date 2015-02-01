@@ -3,46 +3,59 @@
 
 #include <evolution_type.h>
 
-namespace EVOLUTION{
-    namespace FUNCTION{
+namespace EVOLUTION {
+    namespace FUNCTION {
 
-        //8bit‚Ìƒrƒbƒg”‚ğ”‚¦‚é
+        //8bitã®ãƒ“ãƒƒãƒˆæ•°ã‚’æ•°ãˆã‚‹
         extern u8 BitCount8(u8 val);
-        //16bit‚Ìƒrƒbƒg”‚ğ”‚¦‚é
+        //16bitã®ãƒ“ãƒƒãƒˆæ•°ã‚’æ•°ãˆã‚‹
         extern u16 BitCount16(u16 val);
-        //32bit‚Ìƒrƒbƒg”‚ğ”‚¦‚é
+        //32bitã®ãƒ“ãƒƒãƒˆæ•°ã‚’æ•°ãˆã‚‹
         extern u32 BitCount32(u32 val);
-        //64bit‚Ìƒrƒbƒg”‚ğ”‚¦‚é
+        //64bitã®ãƒ“ãƒƒãƒˆæ•°ã‚’æ•°ãˆã‚‹
         extern u64 BitCount64(u64 val);
 
 
-        //16bit‚Ìƒrƒbƒg“ü‚ê‘Ö‚¦‚éƒŠƒgƒ‹ƒGƒfƒBƒAƒ“<==>ƒrƒbƒOƒGƒ“ƒfƒBƒAƒ“
+        //16bitã®ãƒ“ãƒƒãƒˆå…¥ã‚Œæ›¿ãˆã‚‹ãƒªãƒˆãƒ«ã‚¨ãƒ‡ã‚£ã‚¢ãƒ³<==>ãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³
         extern u16 BitSwap(u16 val);
-        //32bit‚Ìƒrƒbƒg“ü‚ê‘Ö‚¦‚éƒŠƒgƒ‹ƒGƒfƒBƒAƒ“<==>ƒrƒbƒOƒGƒ“ƒfƒBƒAƒ“
+        //32bitã®ãƒ“ãƒƒãƒˆå…¥ã‚Œæ›¿ãˆã‚‹ãƒªãƒˆãƒ«ã‚¨ãƒ‡ã‚£ã‚¢ãƒ³<==>ãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³
         extern u32 BitSwap(u32 val);
-        //64bit‚Ìƒrƒbƒg“ü‚ê‘Ö‚¦‚éƒŠƒgƒ‹ƒGƒfƒBƒAƒ“<==>ƒrƒbƒOƒGƒ“ƒfƒBƒAƒ“
+        //64bitã®ãƒ“ãƒƒãƒˆå…¥ã‚Œæ›¿ãˆã‚‹ãƒªãƒˆãƒ«ã‚¨ãƒ‡ã‚£ã‚¢ãƒ³<==>ãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³
         extern u64 BitSwap(u64 val);
 
         extern void BitToChar(char out_character[2], const u8 input_data);
 
-        //Base64‚ÉƒGƒ“ƒR[ƒh‚·‚é
+        //Base64ã«ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã™ã‚‹
         extern s32 Base64encode(const u8* buffer, u32 buffer_size, u8* buf);
-        //Base64‚©‚çƒfƒR[ƒh‚·‚é
+        //Base64ã‹ã‚‰ãƒ‡ã‚³ãƒ¼ãƒ‰ã™ã‚‹
         extern s32 Base64decode(const u8* p, u8* buf);
-
-        //char‚©‚çWchar‚É•ÏŠ·‚·‚é
+        
+#if defined(_LINUX)
+        //charã‹ã‚‰Wcharã«å¤‰æ›ã™ã‚‹
+        extern u32 CharToWChar(c16* dest, u32 dummy/*Linuxã§ã¯ä½¿ç”¨ã•ã‚Œã¾ã›ã‚“*/, const c8* src);
+        //charã‹ã‚‰Wcharã«å¤‰æ›ã™ã‚‹
+        extern u32 CharToWChar(c16* dest, u32 dummy/*Linuxã§ã¯ä½¿ç”¨ã•ã‚Œã¾ã›ã‚“*/, const c8* src, u32 src_len);
+#else        
+        //charã‹ã‚‰Wcharã«å¤‰æ›ã™ã‚‹
         extern u32 CharToWChar(c16* dest, u32 dest_len, const c8* src);
-        //char‚©‚çWchar‚É•ÏŠ·‚·‚é
+        //charã‹ã‚‰Wcharã«å¤‰æ›ã™ã‚‹
         extern u32 CharToWChar(c16* dest, u32 dest_len, const c8* src, u32 src_len);
-
-        //Wchar‚©‚çchar‚É•ÏŠ·‚·‚é
+#endif
+        
+#if defined(_LINUX)
+        //Wcharã‹ã‚‰charã«å¤‰æ›ã™ã‚‹
+        extern u32 WcharToChar(c8* dest, u32 dummy/*Linuxã§ã¯ä½¿ç”¨ã•ã‚Œã¾ã›ã‚“*/, const c16* src);
+        //Wcharã‹ã‚‰charã«å¤‰æ›ã™ã‚‹
+        extern u32 WcharToChar(c8* dest, u32 dummy/*Linuxã§ã¯ä½¿ç”¨ã•ã‚Œã¾ã›ã‚“*/, const c16* src, u32 src_len);
+#else
+        //Wcharã‹ã‚‰charã«å¤‰æ›ã™ã‚‹
         extern u32 WcharToChar(c8* dest, u32 dest_len, const c16* src);
-        //Wchar‚©‚çchar‚É•ÏŠ·‚·‚é
+        //Wcharã‹ã‚‰charã«å¤‰æ›ã™ã‚‹
         extern u32 WcharToChar(c8* dest, u32 dest_len, const c16* src, u32 src_len);
-
-        //•¶š‚Ì’·‚³‚ğæ“¾‚·‚é
+#endif
+        //æ–‡å­—ã®é•·ã•ã‚’å–å¾—ã™ã‚‹
         extern u32 Strlen(const c8* src);
-        //•¶š‚Ì’·‚³‚ğæ“¾‚·‚é
+        //æ–‡å­—ã®é•·ã•ã‚’å–å¾—ã™ã‚‹
         extern u32 Strlen(const c16* src);
     }
 }

@@ -9,29 +9,29 @@ namespace EVOLUTION{
 
             struct ThreadResult{
                 enum _RESULT{
-                    //----------------------------����----------------------------
-                    RESULT_OK = 0x00000000,//����
+                    //----------------------------成功----------------------------
+                    RESULT_OK = 0x00000000,//成功
 
-                    //----------------------------���s----------------------------
-                    UNKNOWN_FAILED = 0x80000000, //���s
-                    WAIT_TIME_OUT_FAILED,        //Thread�ҋ@���^�C���A�E�g���܂���
-                    RUNNING_FAILED,              //�X���b�h�����s���ł���
-                    MUTEX_RELEASE_FAILED,        //MUTEX���J���ł��܂���ł����B
-                    LOCK_FAILED,                 //�X���b�h�����b�N�ł��܂���ł����B
-                    PARAMETER_INDEX_OVER_FAILED, //�w�肵���C���f�b�N�X���͈͂𒴂��܂����B
-                    SET_SIZE_OVER_FAILED,        //�Z�b�g����l���m�ےl�͈̔͂𒴂��܂����B
-                    SET_MEMORY_FAILED,           //MEMORY���m�ۂł��܂���ł���
+                    //----------------------------失敗----------------------------
+                    UNKNOWN_FAILED = 0x80000000, //失敗
+                    WAIT_TIME_OUT_FAILED,        //Thread待機がタイムアウトしました
+                    RUNNING_FAILED,              //スレッドが実行中でした
+                    MUTEX_RELEASE_FAILED,        //MUTEXを開放できませんでした。
+                    LOCK_FAILED,                 //スレッドをロックできませんでした。
+                    PARAMETER_INDEX_OVER_FAILED, //指定したインデックスが範囲を超えました。
+                    SET_SIZE_OVER_FAILED,        //セットする値が確保値の範囲を超えました。
+                    SET_MEMORY_FAILED,           //MEMORYを確保できませんでした
                 };
             };
 
             struct ThreadException{
                 enum _EXCEPTION{
-                    CREATE_THREAD_EXCEPTION,//Thread�N���X�̍쐬���s
-                    CREATE_MUTEX_EXCEPTION, //Mutex�N���X�̍쐬���s
-                    CREATE_THREAD_POOL_EXCEPTION, //�X���b�h�v�[���N���X�̍쐬���s
-                    CREATE_PARAMETER_EXCEPTION, //�p�����[�^�[�N���X�̍쐬���s
-                    CREATE_RESULT_EXCEPTION, //���U���g�N���X�̍쐬���s
-                    THREAD_POOL_OVER_EXCEPTION, //�X���b�h�v�[�����ݒ�L���[���I�[�o�[���܂����B
+                    CREATE_THREAD_EXCEPTION,//Threadクラスの作成失敗
+                    CREATE_MUTEX_EXCEPTION, //Mutexクラスの作成失敗
+                    CREATE_THREAD_POOL_EXCEPTION, //スレッドプールクラスの作成失敗
+                    CREATE_PARAMETER_EXCEPTION, //パラメータークラスの作成失敗
+                    CREATE_RESULT_EXCEPTION, //リザルトクラスの作成失敗
+                    THREAD_POOL_OVER_EXCEPTION, //スレッドプールが設定キューをオーバーしました。
                 };
             };
         }

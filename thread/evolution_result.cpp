@@ -30,10 +30,10 @@ RESULT Result::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
     else
     {
         *ppvObject = nullptr;
-        return RESULT::E_no_instance;
+        return _RESULT::E_no_instance;
     }
 
-    return RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
 u32 Result::Release(){
@@ -51,13 +51,13 @@ Result::Result() : m_value_pointer(0), m_value_size(0){
 
 }
 Result::~Result(){
-    void* ptr = (void*)this->m_value_pointer;
+    u8* ptr = (u8*)this->m_value_pointer;
     this->m_value_pointer = 0;
     EVOLUTION_DELETE(ptr);
 }
 
 ThreadResult::_RESULT Result::CreateResultMemory(u32 value_size){
-    void* ptr = (void*)this->m_value_pointer;
+    u8* ptr = (u8*)this->m_value_pointer;
     this->m_value_pointer = 0;
     EVOLUTION_DELETE(ptr);
 
@@ -71,7 +71,7 @@ ThreadResult::_RESULT Result::CreateResultMemory(u32 value_size){
     return ThreadResult::RESULT_OK;
 }
 
-//Result�̐ݒ�
+//Resultの設定
 ThreadResult::_RESULT Result::SetResult(const void* value, u32 value_size){
     if (value_size < this->m_value_size)
     {
@@ -87,11 +87,11 @@ ThreadResult::_RESULT Result::SetResult(const void* value, u32 value_size){
     }
     return ThreadResult::RESULT_OK;
 }
-//Result�̒l�̃T�C�Y
+//Resultの値のサイズ
 u32 Result::GetResultSize()const{
     return this->m_value_size;
 }
-//Result�̎擾
+//Resultの取得
 void* Result::GetResult()const{
     return (void*)this->m_value_pointer;
 }

@@ -1,5 +1,4 @@
 #include "evolution_timer_implement.h"
-#include <Windows.h>
 
 using namespace EVOLUTION;
 using namespace EVOLUTION::CORE;

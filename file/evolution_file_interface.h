@@ -3,76 +3,83 @@
 
 #include <evolution_type.h>
 
-namespace EVOLUTION{
-    namespace CORE{
-        namespace FILE{
+namespace EVOLUTION {
+    namespace CORE {
+        namespace FILE {
 
-            struct FIleException{
-                enum _EXCEPTION{
-                    FILE_READ_EXCEPTION,//ƒtƒ@ƒCƒ‹‚ğƒŠ[ƒh‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B
+            struct FIleException {
+
+                enum _EXCEPTION {
+                    FILE_READ_EXCEPTION, //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒªãƒ¼ãƒ‰ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚
                 };
             };
 
-            struct Mode{
-                enum _MODE{
-                    _NEW , //V‹Kì¬‚µ‚Ü‚·B
-                    _APPEND,//ƒoƒbƒtƒ@‚ÌÅŒã‚É’Ç‰Á‚µ‚Ü‚·B
+            struct Mode {
+
+                enum _MODE {
+                    _NEW_,     //æ–°è¦ä½œæˆã—ã¾ã™ã€‚
+                    _APPEND_,  //ãƒãƒƒãƒ•ã‚¡ã®æœ€å¾Œã«è¿½åŠ ã—ã¾ã™ã€‚
                 };
             };
 
-            //ƒtƒ@ƒCƒ‹—pƒCƒ“ƒ^[ƒtƒFƒCƒX
-            class IFile : public IUnknown{
+            //ãƒ•ã‚¡ã‚¤ãƒ«ç”¨ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
+
+            class IFile : public IUnknown {
                 EVOLUTION_NOT_DESTRUCTOR(IFile);
             public:
-                //ƒtƒ@ƒCƒ‹‚ÌƒTƒCƒY‚Ìæ“¾
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚µã‚¤ã‚ºã®å–å¾—
                 virtual u64 GetFileSize()const = 0;
-                //ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ğİ’è
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’è¨­å®š
                 virtual void SetPos(const u64& index)const = 0;
-                //ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ğæ“¾
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’å–å¾—
                 virtual u64 GetPos()const = 0;
-                //ƒtƒ@ƒCƒ‹‚ÌI’[Šm”F
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®çµ‚ç«¯ç¢ºèª
                 virtual bool IsEof()const = 0;
-                //ƒtƒ@ƒCƒ‹‚ğƒtƒ‰ƒbƒVƒ…‚µ‚Ü‚·B
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã—ã¾ã™ã€‚
                 virtual void Flash() = 0;
-                //ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
                 virtual void Close() = 0;
             };
 
-            //“Ç‚İ‚İ—pƒtƒ@ƒCƒ‹ƒCƒ“ƒ^[ƒtƒFƒCƒX
-            class IFileRead : public IFile{
+            //èª­ã¿è¾¼ã¿ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
+
+            class IFileRead : public IFile {
                 EVOLUTION_NOT_DESTRUCTOR(IFileRead);
             public:
-                //ƒf[ƒ^‚Ì“Ç‚İ‚İ
+                //ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
                 virtual s32 Read(void* data, u32 length)const = 0;
             };
 
-            //‘‚«‚İ—pƒtƒ@ƒCƒ‹ƒCƒ“ƒ^[ƒtƒFƒCƒX
-            class IFileWrite : public IFile{
+            //æ›¸ãè¾¼ã¿ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
+
+            class IFileWrite : public IFile {
                 EVOLUTION_NOT_DESTRUCTOR(IFileWrite);
             public:
-                //ƒf[ƒ^‚Ì‘‚«‚İ
-                virtual  s32 Write(void* data, u32 length) = 0;
+                //ãƒ‡ãƒ¼ã‚¿ã®æ›¸ãè¾¼ã¿
+                virtual s32 Write(void* data, u32 length) = 0;
             };
 
-            //Text“Ç‚İ‚İ—pƒtƒ@ƒCƒ‹ƒCƒ“ƒ^[ƒtƒFƒCƒX
-            class ITextFileRead : public IFileRead{
+            //Textèª­ã¿è¾¼ã¿ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
+
+            class ITextFileRead : public IFileRead {
                 EVOLUTION_NOT_DESTRUCTOR(ITextFileRead);
             public:
-                //ƒeƒLƒXƒg‚ğˆês“Ç‚İ‚Ş
+                //ãƒ†ã‚­ã‚¹ãƒˆã‚’ä¸€è¡Œèª­ã¿è¾¼ã‚€
                 virtual s32 Gets(c8* text_buffer, u32 length)const = 0;
             };
 
-            //Text‘‚«‚İ—pƒtƒ@ƒCƒ‹ƒCƒ“ƒ^[ƒtƒFƒCƒX
-            class ITextFileWrite : public IFileWrite{
+            //Textæ›¸ãè¾¼ã¿ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
+
+            class ITextFileWrite : public IFileWrite {
                 EVOLUTION_NOT_DESTRUCTOR(ITextFileWrite);
             public:
-                //ƒf[ƒ^‚Ì‘‚«‚İ
-                virtual  s32 Puts(const c8* text) = 0;
+                //ãƒ‡ãƒ¼ã‚¿ã®æ›¸ãè¾¼ã¿
+                virtual s32 Puts(const c8* text) = 0;
             };
         }
     }
 
-    namespace FUNCTION{
+    namespace FUNCTION {
         EVOLUTION::RESULT CreateFileRead(CORE::FILE::IFileRead** pp_file_read, const c8* file_name);
         EVOLUTION::RESULT CreateFileRead(CORE::FILE::IFileRead** pp_file_read, const c16* file_name);
         EVOLUTION::RESULT CreateFileWrite(CORE::FILE::IFileWrite** pp_file_write, const c8* file_name, CORE::FILE::Mode::_MODE mode);
@@ -88,26 +95,26 @@ namespace EVOLUTION{
     //-------------------------------------------------------
     //EVOLUTION Globally Unique Identifier
     //-------------------------------------------------------
-    namespace EVOLUTION_GUID{
+    namespace EVOLUTION_GUID {
         // {2CA2BD10-DB50-4344-91C3-694E031E77A7}
-        static const EVOLUTION_IID IID_IFile =
-        { 0x2ca2bd10, 0xdb50, 0x4344, { 0x91, 0xc3, 0x69, 0x4e, 0x3, 0x1e, 0x77, 0xa7 } };
+        static const EVOLUTION_IID IID_IFile = {0x2ca2bd10, 0xdb50, 0x4344,
+            { 0x91, 0xc3, 0x69, 0x4e, 0x3, 0x1e, 0x77, 0xa7}};
 
         // {DD292ABE-5BB3-402b-9EB0-7CE5F9A06A98}
-        static const EVOLUTION_IID IID_IFileRead =
-        { 0xdd292abe, 0x5bb3, 0x402b, { 0x9e, 0xb0, 0x7c, 0xe5, 0xf9, 0xa0, 0x6a, 0x98 } };
+        static const EVOLUTION_IID IID_IFileRead = {0xdd292abe, 0x5bb3, 0x402b,
+            { 0x9e, 0xb0, 0x7c, 0xe5, 0xf9, 0xa0, 0x6a, 0x98}};
 
         // {A84DE65E-3B3F-465d-9852-1F730C1496FF}
-        static const EVOLUTION_IID IID_IFileWrite =
-        { 0xa84de65e, 0x3b3f, 0x465d, { 0x98, 0x52, 0x1f, 0x73, 0xc, 0x14, 0x96, 0xff } };
+        static const EVOLUTION_IID IID_IFileWrite = {0xa84de65e, 0x3b3f, 0x465d,
+            { 0x98, 0x52, 0x1f, 0x73, 0xc, 0x14, 0x96, 0xff}};
 
         // {5788070A-A0C7-4993-80CF-225A962FC478}
-        static const EVOLUTION_IID IID_ITextFileRead =
-        { 0x5788070a, 0xa0c7, 0x4993, { 0x80, 0xcf, 0x22, 0x5a, 0x96, 0x2f, 0xc4, 0x78 } };
+        static const EVOLUTION_IID IID_ITextFileRead = {0x5788070a, 0xa0c7, 0x4993,
+            { 0x80, 0xcf, 0x22, 0x5a, 0x96, 0x2f, 0xc4, 0x78}};
 
         // {594FE6A5-42C2-4f75-B6C1-D7F5BA016547}
-        static const EVOLUTION_IID IID_ITextFileWrite =
-        { 0x594fe6a5, 0x42c2, 0x4f75, { 0xb6, 0xc1, 0xd7, 0xf5, 0xba, 0x1, 0x65, 0x47 } };
+        static const EVOLUTION_IID IID_ITextFileWrite = {0x594fe6a5, 0x42c2, 0x4f75,
+            { 0xb6, 0xc1, 0xd7, 0xf5, 0xba, 0x1, 0x65, 0x47}};
 
     }
 }

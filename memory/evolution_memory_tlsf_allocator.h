@@ -2,7 +2,8 @@
 #define __EVOLUTION_TLSF_ALLOCATOR__
 
 #include "evolution_memory_interface.h"
-#include "tlsf-3.0\tlsf.h"
+#include "tlsf-3.0/tlsf.h"
+#
 #include <map>
 namespace EVOLUTION{
     namespace CORE{
@@ -41,25 +42,25 @@ namespace EVOLUTION{
 
                 void Initialize();
 
-                //ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒƒ‚ƒŠ‚ÌŠm•Û
+                //ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
                 void* New(ptr_size_t size);
-                //ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢”z—ñƒƒ‚ƒŠ‚ÌŠm•Û
+                //ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„é…åˆ—ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
                 void* NewArray(ptr_size_t size);
-                //ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒm[ƒh‚Ìì¬
+                //ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒŽãƒ¼ãƒ‰ã®ä½œæˆ
                 void Delete(void* pointer);
-                //ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒm[ƒh‚Ìì¬
+                //ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒŽãƒ¼ãƒ‰ã®ä½œæˆ
                 void DeleteArray(void* pointer);
-                //ŠÇ—‚µ‚Ä‚éMemoryƒTƒCƒY
+                //ç®¡ç†ã—ã¦ã‚‹Memoryã‚µã‚¤ã‚º
                 ptr_size_t GetHeapSize();
-                //Žg—p’†‚ÌMemoryƒTƒCƒY
+                //ä½¿ç”¨ä¸­ã®Memoryã‚µã‚¤ã‚º
                 ptr_size_t GetUseHeapSize();
-                //ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒƒ‚ƒŠ‚ÌŠm•Û
+                //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
                 void* DebugNew(ptr_size_t size, const char* file_name, u32 line);
-                //ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢”z—ñƒƒ‚ƒŠ‚ÌŠm•Û
+                //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„é…åˆ—ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
                 void* DebugNewArray(ptr_size_t size, const char* file_name, u32 line);
-                //ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒƒ‚ƒŠŠJ•ú
+                //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒ¡ãƒ¢ãƒªé–‹æ”¾
                 void DebugDelete(void* pointer);
-                //ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢”z—ñƒƒ‚ƒŠŠJ•ú
+                //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„é…åˆ—ãƒ¡ãƒ¢ãƒªé–‹æ”¾
                 void DebugDeleteArray(void* pointer);
 
                 void DebugDataShow();

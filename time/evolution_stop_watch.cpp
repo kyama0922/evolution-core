@@ -28,10 +28,10 @@ RESULT StopWatch::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject
     else
     {
         *ppvObject = nullptr;
-        return RESULT::E_no_instance;
+        return _RESULT::E_no_instance;
     }
 
-    return RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
 u32 StopWatch::Release(){
@@ -55,32 +55,32 @@ RESULT StopWatch::Create(){
     return _RESULT::S_ok;
 }
 
-//“®‚©‚·
+//å‹•ã‹ã™
 void StopWatch::Start(){
     this->m_start = true;
     this->m_start_time = this->mp_application_counter->GetMilliSecondU32();
 }
-//’â~
+//åœæ­¢
 void StopWatch::Stop(){
     this->m_start = false;
     this->m_start_time = this->m_stop_time = this->mp_application_counter->GetMilliSecondU32();
 }
-//ˆê’â~
+//ä¸€æ™‚åœæ­¢
 void StopWatch::Pause(){
     this->m_start = false;
     this->m_stop_time = this->mp_application_counter->GetMilliSecondU32();
 }
-//ÄŠJ
+//å†é–‹
 void StopWatch::RePause(){
     this->m_start = true;
     this->m_start_time = this->mp_application_counter->GetMilliSecondU32() - this->m_stop_time;
 }
 
-//“®‚©‚µ‚Ä‚¢‚é
+//å‹•ã‹ã—ã¦ã„ã‚‹
 bool StopWatch::IsStart()const{
     return this->m_start;
 }
-//Œ»İŠÔ‚Ìæ“¾(millisecond)
+//ç¾åœ¨æ™‚é–“ã®å–å¾—(millisecond)
 u32 StopWatch::GetMilliSecondU32()const{
     if (this->m_start){
         return (u32)this->mp_application_counter->GetMilliSecondU32() - this->m_start_time;
@@ -88,7 +88,7 @@ u32 StopWatch::GetMilliSecondU32()const{
     return this->m_stop_time - this->m_start_time;
 }
 
-//Œ»İŠÔ‚Ìæ“¾(second)
+//ç¾åœ¨æ™‚é–“ã®å–å¾—(second)
 u32 StopWatch::GetSecondU32()const{
     if (this->m_start){
         return ((u32)this->mp_application_counter->GetMilliSecondU32() - this->m_start_time) / 1000;

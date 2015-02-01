@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="SourceFiles" displayName="ソース・ファイル" projectFiles="true">
+      <logicalFolder name="etc" displayName="etc" projectFiles="true">
+        <itemPath>../etc/evolution_assert.cpp</itemPath>
+        <itemPath>../etc/evolution_assert.h</itemPath>
+        <itemPath>../etc/evolution_crypto.cpp</itemPath>
+        <itemPath>../etc/evolution_crypto.h</itemPath>
+        <itemPath>../etc/evolution_debug.cpp</itemPath>
+        <itemPath>../etc/evolution_debug.h</itemPath>
+        <itemPath>../etc/evolution_log_file.cpp</itemPath>
+        <itemPath>../etc/evolution_log_file.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="file" displayName="file" projectFiles="true">
+        <itemPath>../file/evolution_directory.cpp</itemPath>
+        <itemPath>../file/evolution_directory.h</itemPath>
+        <itemPath>../file/evolution_file.cpp</itemPath>
+        <itemPath>../file/evolution_file.h</itemPath>
+        <itemPath>../file/evolution_file_function.cpp</itemPath>
+        <itemPath>../file/evolution_file_implement.h</itemPath>
+        <itemPath>../file/evolution_file_interface.h</itemPath>
+        <itemPath>../file/evolution_file_read.cpp</itemPath>
+        <itemPath>../file/evolution_file_write.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="function" displayName="function" projectFiles="true">
+        <itemPath>../function/evolution_function.h</itemPath>
+        <itemPath>../function/evolution_function_base64.cpp</itemPath>
+        <itemPath>../function/evolution_function_bit_count.cpp</itemPath>
+        <itemPath>../function/evolution_function_bit_swap.cpp</itemPath>
+        <itemPath>../function/evolution_function_bit_to_char.cpp</itemPath>
+        <itemPath>../function/evolution_function_char_to_wchar.cpp</itemPath>
+        <itemPath>../function/evolution_function_string.cpp</itemPath>
+        <itemPath>../function/evolution_function_wchar_to_char.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="memory" displayName="memory" projectFiles="true">
+        <logicalFolder name="tlsf-3.0" displayName="tlsf-3.0" projectFiles="true">
+          <itemPath>../memory/tlsf-3.0/Readme.txt</itemPath>
+          <itemPath>../memory/tlsf-3.0/tlsf.c</itemPath>
+          <itemPath>../memory/tlsf-3.0/tlsf.h</itemPath>
+          <itemPath>../memory/tlsf-3.0/tlsfbits.h</itemPath>
+        </logicalFolder>
+        <itemPath>../memory/evolution_memory_dynamic_memory_correction.cpp</itemPath>
+        <itemPath>../memory/evolution_memory_dynamic_memory_correction.h</itemPath>
+        <itemPath>../memory/evolution_memory_implement.h</itemPath>
+        <itemPath>../memory/evolution_memory_interface.h</itemPath>
+        <itemPath>../memory/evolution_memory_tlsf_allocator.cpp</itemPath>
+        <itemPath>../memory/evolution_memory_tlsf_allocator.h</itemPath>
+        <itemPath>../memory/evolution_stack_memory_manager.cpp</itemPath>
+        <itemPath>../memory/evolution_stack_memory_manager.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="template" displayName="template" projectFiles="true">
+        <itemPath>../template/evolution_array.h</itemPath>
+        <itemPath>../template/evolution_comptr.h</itemPath>
+        <itemPath>../template/evolution_hashmap.h</itemPath>
+        <itemPath>../template/evolution_list.h</itemPath>
+        <itemPath>../template/evolution_map.h</itemPath>
+        <itemPath>../template/evolution_singleton.h</itemPath>
+        <itemPath>../template/evolution_template.h</itemPath>
+        <itemPath>../template/evolution_vector.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="thread" displayName="thread" projectFiles="true">
+        <itemPath>../thread/evolution_mutex.cpp</itemPath>
+        <itemPath>../thread/evolution_parameter.cpp</itemPath>
+        <itemPath>../thread/evolution_result.cpp</itemPath>
+        <itemPath>../thread/evolution_thread.cpp</itemPath>
+        <itemPath>../thread/evolution_thread.h</itemPath>
+        <itemPath>../thread/evolution_thread_function.cpp</itemPath>
+        <itemPath>../thread/evolution_thread_implement.h</itemPath>
+        <itemPath>../thread/evolution_thread_interface.h</itemPath>
+        <itemPath>../thread/evolution_thread_pool.cpp</itemPath>
+        <itemPath>../thread/evolution_thread_result.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="time" displayName="time" projectFiles="true">
+        <itemPath>../time/evolution_application_counter.cpp</itemPath>
+        <itemPath>../time/evolution_stop_watch.cpp</itemPath>
+        <itemPath>../time/evolution_timer_factory.cpp</itemPath>
+        <itemPath>../time/evolution_timer_implement.h</itemPath>
+        <itemPath>../time/evolution_timer_interface.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="HeaderFiles" displayName="ヘッダー・ファイル" projectFiles="true">
+      <itemPath>../evolution_core.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles" displayName="リソース・ファイル" projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="テスト・ファイル"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="重要なファイル"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+      <itemPath>../../evolution.h</itemPath>
+      <itemPath>../../evolution_etc.h</itemPath>
+      <itemPath>../../evolution_type.h</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>../etc</Elem>
+    <Elem>../file</Elem>
+    <Elem>../function</Elem>
+    <Elem>../memory</Elem>
+    <Elem>../template</Elem>
+    <Elem>../thread</Elem>
+    <Elem>../time</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>../../</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_LINUX=1</Elem>
+            <Elem>_X64=1</Elem>
+            <Elem>nullptr=0</Elem>
+          </preprocessorList>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>../..</pElem>
+          </incDir>
+          <commandLine>-ggdb -O0 -lrt</commandLine>
+          <preprocessorList>
+            <Elem>_DEBUG</Elem>
+            <Elem>_LINUX=1</Elem>
+            <Elem>_X64=1</Elem>
+            <Elem>nullptr=0</Elem>
+          </preprocessorList>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <packaging>
+        <packType>Tar</packType>
+        <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/libevolution-core.tar</output>
+        <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}lib/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="644"
+                            owner="root"
+                            group="bin"/>
+        </packFileList>
+      </packaging>
+      <item path="../etc/evolution_assert.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../etc/evolution_assert.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../etc/evolution_crypto.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../etc/evolution_crypto.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../etc/evolution_debug.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../etc/evolution_debug.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../etc/evolution_log_file.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../etc/evolution_log_file.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../evolution_core.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../file/evolution_directory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../file/evolution_directory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../file/evolution_file.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../file/evolution_file.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../file/evolution_file_function.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../file/evolution_file_implement.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../file/evolution_file_interface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../file/evolution_file_read.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../file/evolution_file_write.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../function/evolution_function.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../function/evolution_function_base64.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_bit_count.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_bit_swap.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_bit_to_char.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_char_to_wchar.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_string.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_wchar_to_char.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_dynamic_memory_correction.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_dynamic_memory_correction.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_implement.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_interface.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_tlsf_allocator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_tlsf_allocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_stack_memory_manager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_stack_memory_manager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../memory/tlsf-3.0/Readme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../memory/tlsf-3.0/tlsf.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../memory/tlsf-3.0/tlsf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../memory/tlsf-3.0/tlsfbits.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_array.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_comptr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_hashmap.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_list.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_map.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_singleton.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_template.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_vector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../thread/evolution_mutex.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../thread/evolution_parameter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../thread/evolution_result.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread_function.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread_implement.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread_interface.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread_pool.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread_result.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../time/evolution_application_counter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../time/evolution_stop_watch.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../time/evolution_timer_factory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../time/evolution_timer_implement.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../time/evolution_timer_interface.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../..</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>NODEBUG=1</Elem>
+            <Elem>_LINUX=1</Elem>
+            <Elem>_X64=1</Elem>
+            <Elem>nullptr=0</Elem>
+          </preprocessorList>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libevolution-core.a</output>
+        </archiverTool>
+      </compileType>
+      <packaging>
+        <packType>Tar</packType>
+        <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/libevolution-core.tar</output>
+        <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}lib/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="644"
+                            owner="root"
+                            group="bin"/>
+        </packFileList>
+      </packaging>
+      <item path="../etc/evolution_assert.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../etc/evolution_assert.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../etc/evolution_crypto.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../etc/evolution_crypto.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../etc/evolution_debug.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../etc/evolution_debug.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../etc/evolution_log_file.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../etc/evolution_log_file.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../evolution_core.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../file/evolution_directory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../file/evolution_directory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../file/evolution_file.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../file/evolution_file.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../file/evolution_file_function.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../file/evolution_file_implement.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../file/evolution_file_interface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../file/evolution_file_read.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../file/evolution_file_write.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../function/evolution_function.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../function/evolution_function_base64.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_bit_count.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_bit_swap.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_bit_to_char.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_char_to_wchar.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_string.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../function/evolution_function_wchar_to_char.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_dynamic_memory_correction.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_dynamic_memory_correction.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_implement.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_interface.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_tlsf_allocator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_memory_tlsf_allocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_stack_memory_manager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../memory/evolution_stack_memory_manager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../memory/tlsf-3.0/Readme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../memory/tlsf-3.0/tlsf.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../memory/tlsf-3.0/tlsf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../memory/tlsf-3.0/tlsfbits.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_array.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_comptr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_hashmap.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_list.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_map.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_singleton.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_template.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../template/evolution_vector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../thread/evolution_mutex.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../thread/evolution_parameter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../thread/evolution_result.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread_function.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread_implement.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread_interface.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread_pool.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../thread/evolution_thread_result.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../time/evolution_application_counter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../time/evolution_stop_watch.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../time/evolution_timer_factory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../time/evolution_timer_implement.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../time/evolution_timer_interface.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

@@ -8,7 +8,7 @@ namespace EVOLUTION{
     namespace CORE{
         namespace FILE{
 
-            //“Ç‚İ‚İ—pƒtƒ@ƒCƒ‹ƒCƒ“ƒ^[ƒtƒFƒCƒX
+            //èª­ã¿è¾¼ã¿ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
             class FileRead : public IFileRead{
             public:
                 EVOLUTION::InstanceCounter m_instance_counter;
@@ -26,23 +26,23 @@ namespace EVOLUTION{
                 RESULT Create(const c8* filename);
                 RESULT Create(const c16* filename);
 
-                //ƒtƒ@ƒCƒ‹‚ÌƒTƒCƒY‚Ìæ“¾
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚µã‚¤ã‚ºã®å–å¾—
                 u64 GetFileSize()const;
-                //ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ğİ’è
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’è¨­å®š
                 void SetPos(const u64& index)const;
-                //ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ğæ“¾
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’å–å¾—
                 u64 GetPos()const;
-                //ƒtƒ@ƒCƒ‹‚ÌI’[Šm”F
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®çµ‚ç«¯ç¢ºèª
                 bool IsEof()const;
-                //ƒtƒ@ƒCƒ‹‚ğƒtƒ‰ƒbƒVƒ…‚µ‚Ü‚·B
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã—ã¾ã™ã€‚
                 void Flash();
-                //ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
                 void Close();
-                //ƒf[ƒ^‚Ì“Ç‚İ‚İ
+                //ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
                 s32 Read(void* data, u32 length)const;
             };
 
-            //Text“Ç‚İ‚İ—pƒtƒ@ƒCƒ‹ƒCƒ“ƒ^[ƒtƒFƒCƒX
+            //Textèª­ã¿è¾¼ã¿ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
             class TextFileRead : public ITextFileRead{
             public:
                 EVOLUTION::InstanceCounter m_instance_counter;
@@ -60,25 +60,25 @@ namespace EVOLUTION{
                 RESULT Create(const c8* filename);
                 RESULT Create(const c16* filename);
 
-                //ƒtƒ@ƒCƒ‹‚ÌƒTƒCƒY‚Ìæ“¾
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚µã‚¤ã‚ºã®å–å¾—
                 u64 GetFileSize()const;
-                //ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ğİ’è
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’è¨­å®š
                 void SetPos(const u64& index)const;
-                //ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ğæ“¾
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’å–å¾—
                 u64 GetPos()const;
-                //ƒtƒ@ƒCƒ‹‚ÌI’[Šm”F
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®çµ‚ç«¯ç¢ºèª
                 bool IsEof()const;
-                //ƒtƒ@ƒCƒ‹‚ğƒtƒ‰ƒbƒVƒ…‚µ‚Ü‚·B
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã—ã¾ã™ã€‚
                 void Flash();
-                //ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
                 void Close();
-                //ƒf[ƒ^‚Ì“Ç‚İ‚İ
+                //ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
                 s32 Read(void* data, u32 length)const;
 
                 s32 Gets(c8* text_buffer, u32 length)const;
             };
 
-            //‘‚«‚İ—pƒtƒ@ƒCƒ‹ƒCƒ“ƒ^[ƒtƒFƒCƒX
+            //æ›¸ãè¾¼ã¿ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
             class FileWrite : public IFileWrite{
             private:
                 EVOLUTION::InstanceCounter m_instance_counter;
@@ -96,23 +96,23 @@ namespace EVOLUTION{
                 RESULT Create(const c8* filename, Mode::_MODE mode);
                 RESULT Create(const c16* filename, Mode::_MODE mode);
 
-                //ƒtƒ@ƒCƒ‹‚ÌƒTƒCƒY‚Ìæ“¾
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚µã‚¤ã‚ºã®å–å¾—
                 u64 GetFileSize()const;
-                //ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ğİ’è
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’è¨­å®š
                 void SetPos(const u64& index)const;
-                //ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ğæ“¾
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’å–å¾—
                 u64 GetPos()const;
-                //ƒtƒ@ƒCƒ‹‚ÌI’[Šm”F
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®çµ‚ç«¯ç¢ºèª
                 bool IsEof()const;
-                //ƒtƒ@ƒCƒ‹‚ğƒtƒ‰ƒbƒVƒ…‚µ‚Ü‚·B
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã—ã¾ã™ã€‚
                 void Flash();
-                //ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
                 void Close();
-                //ƒf[ƒ^‚Ì‘‚«‚İ
+                //ãƒ‡ãƒ¼ã‚¿ã®æ›¸ãè¾¼ã¿
                 s32 Write(void* data, u32 length);
             };
 
-            //Text‘‚«‚İ—pƒtƒ@ƒCƒ‹ƒCƒ“ƒ^[ƒtƒFƒCƒX
+            //Textæ›¸ãè¾¼ã¿ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
             class TextFileWrite : public ITextFileWrite{
             private:
                 EVOLUTION::InstanceCounter m_instance_counter;
@@ -130,19 +130,19 @@ namespace EVOLUTION{
                 RESULT Create(const c8* filename, Mode::_MODE mode);
                 RESULT Create(const c16* filename, Mode::_MODE mode);
 
-                //ƒtƒ@ƒCƒ‹‚ÌƒTƒCƒY‚Ìæ“¾
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚µã‚¤ã‚ºã®å–å¾—
                 u64 GetFileSize()const;
-                //ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ğİ’è
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’è¨­å®š
                 void SetPos(const u64& index)const;
-                //ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ğæ“¾
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’å–å¾—
                 u64 GetPos()const;
-                //ƒtƒ@ƒCƒ‹‚ÌI’[Šm”F
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã®çµ‚ç«¯ç¢ºèª
                 bool IsEof()const;
-                //ƒtƒ@ƒCƒ‹‚ğƒtƒ‰ƒbƒVƒ…‚µ‚Ü‚·B
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã—ã¾ã™ã€‚
                 void Flash();
-                //ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+                //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
                 void Close();
-                //ƒf[ƒ^‚Ì‘‚«‚İ
+                //ãƒ‡ãƒ¼ã‚¿ã®æ›¸ãè¾¼ã¿
                 s32 Write(void* data, u32 length);
 
                 s32 Puts(const c8* text);

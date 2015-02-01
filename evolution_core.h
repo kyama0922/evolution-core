@@ -2,43 +2,43 @@
 #define __EVOLUTION_CORE_H__
 
 //----------------------------------------------------
-//ƒeƒ“ƒvƒŒ[ƒgŠÖŒW
+//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–¢ä¿‚
 //----------------------------------------------------
 #include "template/evolution_template.h"
 
 //----------------------------------------------------
-//”ñ“¯ŠúŠÖŒW
+//éåŒæœŸé–¢ä¿‚
 //----------------------------------------------------
 #include "thread/evolution_thread.h"
 
 //----------------------------------------------------
-//ƒƒ‚ƒŠŠÖŒW
+//ãƒ¡ãƒ¢ãƒªé–¢ä¿‚
 //----------------------------------------------------
 #include "memory/evolution_memory_interface.h"
 
 //----------------------------------------------------
-//ƒtƒ@ƒCƒ‹ŠÖŒW
+//ãƒ•ã‚¡ã‚¤ãƒ«é–¢ä¿‚
 //----------------------------------------------------
-#include "file\evolution_file_interface.h"
+#include "file/evolution_file_interface.h"
 
-#include "file\evolution_file.h"
+#include "file/evolution_file.h"
 
-#include "file\evolution_directory.h"
+#include "file/evolution_directory.h"
 //----------------------------------------------------
 //ETC
 //----------------------------------------------------
-//ƒAƒT[ƒVƒ‡ƒ“
+//ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³
 #include "etc/evolution_assert.h"
 
 //Debug
 #include "etc/evolution_debug.h"
 
-//ƒnƒbƒVƒ…‰»ƒNƒ‰ƒX
+//ãƒãƒƒã‚·ãƒ¥åŒ–ã‚¯ãƒ©ã‚¹
 #include "etc/evolution_crypto.h"
 
-//ŠÖ”
+//é–¢æ•°
 #include "function/evolution_function.h"
 
-//ŠÔŠÖŒW‚ÌƒNƒ‰ƒX
-#include "time\evolution_timer_interface.h"
+//æ™‚é–“é–¢ä¿‚ã®ã‚¯ãƒ©ã‚¹
+#include "time/evolution_timer_interface.h"
 #endif //!__EVOLUTION_CORE_H__

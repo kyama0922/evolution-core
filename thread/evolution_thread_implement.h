@@ -3,11 +3,14 @@
 
 #include "evolution_thread_interface.h"
 #include "../template/evolution_template.h"
-#include <Windows.h>
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE             /* See feature_test_macros(7) */
+#endif
+#include <pthread.h>
 
-namespace EVOLUTION{
-    namespace CORE{
-        namespace THREAD{
+namespace EVOLUTION {
+    namespace CORE {
+        namespace THREAD {
             class Parameter;
             class Result;
             class ThreadPool;
@@ -15,11 +18,13 @@ namespace EVOLUTION{
             class Thread;
 
 
-            //ƒpƒ‰ƒƒ^[
+            //ãƒ‘ãƒ©ãƒ¡ã‚¿ãƒ¼
+
             class Parameter : public IParameter {
             private:
                 EVOLUTION::InstanceCounter m_instance_counter;
-                struct _Parameter{
+
+                struct _Parameter {
                     ptr_t pointer;
                     ptr_size_t size;
                 };
@@ -34,21 +39,21 @@ namespace EVOLUTION{
                 Parameter();
                 ~Parameter();
 
-                //ì¬‚µ‚½ƒpƒ‰ƒ[ƒ^[”‚ğæ“¾‚µ‚Ü‚·B
+                //ä½œæˆã—ãŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
                 u32 GetParameterCount()const;
-                //ƒpƒ‰ƒ[ƒ^[‚ğì¬‚µ‚Ü‚·B
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’ä½œæˆã—ã¾ã™ã€‚
                 ThreadResult::_RESULT CreateParameters(u32 param_count);
-                //ƒpƒ‰ƒ[ƒ^[—pƒƒ‚ƒŠ‚ğŠm•Û‚µ‚Ü‚·B
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç”¨ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿ã—ã¾ã™ã€‚
                 ThreadResult::_RESULT CreateParameterMemory(u32 index, u32 param_size);
-                //ƒpƒ‰ƒ[ƒ^[ƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
                 u32 GetParameterSize(u32 index)const;
-                //ƒpƒ‰ƒ[ƒ^[‚É’l‚ğƒZƒbƒg‚µ‚Ü‚·B
-                ThreadResult::_RESULT SetParameter(u32 index,const void* val, u32 param_size);
-                //ƒpƒ‰ƒ[ƒ^[‚ğæ“¾‚µ‚Ü‚·B
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã«å€¤ã‚’ã‚»ãƒƒãƒˆã—ã¾ã™ã€‚
+                ThreadResult::_RESULT SetParameter(u32 index, const void* val, u32 param_size);
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚
                 const void* GetParameter(u32 index)const;
             };
 
-            class Result : public IResult{
+            class Result : public IResult {
             private:
                 EVOLUTION::InstanceCounter m_instance_counter;
                 ptr_t m_value_pointer;
@@ -62,25 +67,26 @@ namespace EVOLUTION{
                 Result();
                 ~Result();
 
-                //ƒpƒ‰ƒ[ƒ^[‚ğì¬‚µ‚Ü‚·B
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’ä½œæˆã—ã¾ã™ã€‚
                 ThreadResult::_RESULT CreateResultMemory(u32 value_size);
-                //Result‚Ìİ’è
+                //Resultã®è¨­å®š
                 ThreadResult::_RESULT SetResult(const void* value, u32 value_size);
-                //Result‚Ì’l‚ÌƒTƒCƒY
+                //Resultã®å€¤ã®ã‚µã‚¤ã‚º
                 u32 GetResultSize()const;
-                //Result‚Ìæ“¾
+                //Resultã®å–å¾—
                 void* GetResult()const;
             };
 
-            struct THREAD_POOL_FLAG{
-                enum _FLAG{
+            struct THREAD_POOL_FLAG {
+
+                enum _FLAG {
                     LOOP = 0x00000001,
                     WAIT = 0x00000002,
                     END = 0x00000004,
                 };
             };
 
-            class WorkThread{
+            class WorkThread {
             public:
                 u16 m_pool_write_thread_read_flg;
                 u16 m_pool_read_thread_write_flg;
@@ -88,24 +94,24 @@ namespace EVOLUTION{
                 IResult* mp_result;
                 IParameter* mp_parameter;
                 ITask* mp_task;
-                IMutex* mp_mutex;
+                Mutex* mp_mutex;
                 Thread* mp_thread;
-                
-         
+                pthread_cond_t m_cond;
+
                 WorkThread();
                 RESULT Initialise(u32 stack_size);
             };
 
-            struct TaskInfo{
+            struct TaskInfo {
                 ITask* task;
                 IParameter* parameter;
             };
 
-            class ThreadPool :public IThreadPool{
+            class ThreadPool : public IThreadPool {
             private:
                 EVOLUTION::InstanceCounter m_instance_counter;
 
-                //ƒ^ƒXƒN—pƒ~ƒ…[ƒeƒbƒNƒX
+                //ã‚¿ã‚¹ã‚¯ç”¨ãƒŸãƒ¥ãƒ¼ãƒ†ãƒƒã‚¯ã‚¹
                 Mutex* mp_mutex;
 
                 u32 m_stack_size;
@@ -116,9 +122,9 @@ namespace EVOLUTION{
 
                 u32 m_pool_count;
 
-                //Œ»İ“o˜^‚³‚ê‚¢‚Ä‚éƒ^ƒXƒN‚Ì”
+                //ç¾åœ¨ç™»éŒ²ã•ã‚Œã„ã¦ã‚‹ã‚¿ã‚¹ã‚¯ã®æ•°
                 u32 m_resistor_task_count;
-                //ƒ^ƒXƒN—pƒLƒ…[‚ÌÅ‘å”
+                //ã‚¿ã‚¹ã‚¯ç”¨ã‚­ãƒ¥ãƒ¼ã®æœ€å¤§æ•°
                 u32 m_max_task_queue_count;
                 TaskInfo* mp_taskinfo_queue_root;
 
@@ -135,29 +141,30 @@ namespace EVOLUTION{
                 ~ThreadPool();
 
                 u32 GetPoolCount();
-                //ƒ^ƒXƒN‚ÌÀs
+                //ã‚¿ã‚¹ã‚¯ã®å®Ÿè¡Œ
                 void Execute(u32 sleep_ms_time);
-                //ƒ^ƒXƒN‚Ì“o˜^(ƒXƒŒƒbƒhƒZ[ƒt)
+                //ã‚¿ã‚¹ã‚¯ã®ç™»éŒ²(ã‚¹ãƒ¬ãƒƒãƒ‰ã‚»ãƒ¼ãƒ•)
                 ThreadResult::_RESULT TaskExecute(ITask* task, IParameter* parameter);
-                //Àsƒ^ƒXƒN”‚ğæ“¾
+                //å®Ÿè¡Œã‚¿ã‚¹ã‚¯æ•°ã‚’å–å¾—
                 s32 TaskExecuteCount()const;
 
-                //ƒ^ƒXƒN‚ÌƒLƒ…[‚ÉÏ‚Ş(ƒXƒŒƒbƒhƒZ[ƒt)
+                //ã‚¿ã‚¹ã‚¯ã®ã‚­ãƒ¥ãƒ¼ã«ç©ã‚€(ã‚¹ãƒ¬ãƒƒãƒ‰ã‚»ãƒ¼ãƒ•)
                 void PushTask(ITask* task, IParameter* parameter);
-                //ƒ^ƒXƒN‚Ìæ“¾
+                //ã‚¿ã‚¹ã‚¯ã®å–å¾—
                 TaskInfo* PopTask();
 
                 static void Thread(ptr_t argument, const IThread* thread);
             };
 
-            class Mutex : public IMutex{
+            class Mutex : public IMutex {
             private:
                 static u16 unique_id;
                 static u64 CreateUniqueId();
 
                 tchar m_id[8];
                 EVOLUTION::InstanceCounter m_instance_counter;
-                HANDLE m_mutex_handle;
+                pthread_mutex_t m_mutex_handle;
+                pthread_mutexattr_t m_mutex_attr;
             public:
                 //IUnknown
                 u32 AddRef();
@@ -167,21 +174,29 @@ namespace EVOLUTION{
                 Mutex();
                 ~Mutex();
 
-                HANDLE Lock()const;
-                ThreadResult::_RESULT Mutex::UnLock(HANDLE lock_handle)const;
+                s32 Lock();
+                ThreadResult::_RESULT UnLock();
+                pthread_mutex_t* GetMutex();
             };
 
+            struct THREAD_STATE_FLAG {
 
-            class Thread :public IThread{
+                enum _FLAG {
+                    RUN = 0x00000001,
+                };
+            };
+
+            class Thread : public IThread {
             private:
                 EVOLUTION::InstanceCounter m_instance_counter;
                 u32 m_stack_size;
                 ptr_t m_argument;
-                HANDLE m_thread_handle;
-                HANDLE m_lock_handle;
+                pthread_t m_thread_handle;
+                pthread_attr_t m_thread_attr;
+                u32 m_state;
+
                 Mutex* mp_mutex;
                 void(*m_function_pointer)(ptr_t address, const IThread* thread);
-
             public:
                 //IUnknown
                 u32 AddRef();
@@ -199,9 +214,9 @@ namespace EVOLUTION{
                 bool IsRun()const;
                 bool IsEnd()const;
 
-                HANDLE GetHandle()const;
+                pthread_t GetHandle()const;
             private:
-                static unsigned _stdcall Start(void* myself);
+                static void* Start(void* myself);
             };
 
         }
@@ -210,28 +225,28 @@ namespace EVOLUTION{
     //-------------------------------------------------------
     //EVOLUTION Globally Unique Identifier
     //-------------------------------------------------------
-    namespace EVOLUTION_GUID{
+    namespace EVOLUTION_GUID {
         // {3137751A-A6F8-4105-AD04-49D1A48528BF}
-        static const EVOLUTION_IID IID_Parameter =
-        { 0x3137751a, 0xa6f8, 0x4105, { 0xad, 0x4, 0x49, 0xd1, 0xa4, 0x85, 0x28, 0xbf } };
+        static const EVOLUTION_IID IID_Parameter = {0x3137751a, 0xa6f8, 0x4105,
+            { 0xad, 0x4, 0x49, 0xd1, 0xa4, 0x85, 0x28, 0xbf}};
 
         // {644A19C0-7BB3-4b6b-BAAC-EF798FD70CD8}
-        static const EVOLUTION_IID IID_Result =
-        { 0x644a19c0, 0x7bb3, 0x4b6b, { 0xba, 0xac, 0xef, 0x79, 0x8f, 0xd7, 0xc, 0xd8 } };
+        static const EVOLUTION_IID IID_Result = {0x644a19c0, 0x7bb3, 0x4b6b,
+            { 0xba, 0xac, 0xef, 0x79, 0x8f, 0xd7, 0xc, 0xd8}};
 
         // {34E977C2-5E92-4d99-95D9-DAF462765CC7}
-        static const EVOLUTION_IID IID_ThreadPool =
-        { 0x34e977c2, 0x5e92, 0x4d99, { 0x95, 0xd9, 0xda, 0xf4, 0x62, 0x76, 0x5c, 0xc7 } };
+        static const EVOLUTION_IID IID_ThreadPool = {0x34e977c2, 0x5e92, 0x4d99,
+            { 0x95, 0xd9, 0xda, 0xf4, 0x62, 0x76, 0x5c, 0xc7}};
 
 
         // {AF2CA453-A262-4520-BEBB-FA414FF72979}
-        static const EVOLUTION_IID IID_Mutex =
-        { 0xaf2ca453, 0xa262, 0x4520, { 0xbe, 0xbb, 0xfa, 0x41, 0x4f, 0xf7, 0x29, 0x79 } };
+        static const EVOLUTION_IID IID_Mutex = {0xaf2ca453, 0xa262, 0x4520,
+            { 0xbe, 0xbb, 0xfa, 0x41, 0x4f, 0xf7, 0x29, 0x79}};
 
 
         // {EDADF378-FF4A-41e0-9A84-EC5DA330C69C}
-        static const EVOLUTION_IID IID_Thread =
-        { 0xedadf378, 0xff4a, 0x41e0, { 0x9a, 0x84, 0xec, 0x5d, 0xa3, 0x30, 0xc6, 0x9c } };
+        static const EVOLUTION_IID IID_Thread = {0xedadf378, 0xff4a, 0x41e0,
+            { 0x9a, 0x84, 0xec, 0x5d, 0xa3, 0x30, 0xc6, 0x9c}};
 
     }
 

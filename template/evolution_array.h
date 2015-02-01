@@ -12,26 +12,26 @@ namespace EVOLUTION{
             u32 m_array_count;
             _T* mp_array;
 
-            //ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ì‹Ö~
+            //ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã®ç¦æ­¢
             Array(const Array& t) : mp_array(t.mp_array), m_array_count(t.m_array_count){
            
             }
         public:
-            //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+            //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
             Array() :m_array_count(0), mp_array(nullptr){
 
             }
-            //ƒRƒ“ƒXƒgƒ‰ƒNƒ^F”z—ñƒTƒCƒY‚Ìw’è‚µ‚Äì¬
+            //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼šé…åˆ—ã‚µã‚¤ã‚ºã®æŒ‡å®šã—ã¦ä½œæˆ
             Array(u32 count) :m_array_count(count), mp_array(nullptr){
                 this->mp_array = NEW _T[count];
             }
 
-            //ƒfƒXƒgƒ‰ƒNƒ^
+            //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
             ~Array(){
                 EVOLUTION_DELETE_ARRAY(this->mp_array);
             }
 
-            //”z—ñ‚ÌƒTƒCƒY•ÏX(’†‚Ì’l‚à”jŠü‚³‚ê‚é)
+            //é…åˆ—ã®ã‚µã‚¤ã‚ºå¤‰æ›´(ä¸­ã®å€¤ã‚‚ç ´æ£„ã•ã‚Œã‚‹)
             inline void ReSize(u32 length){
                 EVOLUTION_DELETE_ARRAY(this->mp_array);
                 this->mp_array = NEW _T[length];
@@ -39,30 +39,30 @@ namespace EVOLUTION{
             }
 
 
-            //Å‘åƒTƒCƒY‚Ìæ“¾
+            //æœ€å¤§ã‚µã‚¤ã‚ºã®å–å¾—
             inline u32 GetMaxCount(){
                 return this->m_array_count;
             }
 
-            //”z—ñ‚ÌƒAƒhƒŒƒXæ“¾
+            //é…åˆ—ã®ã‚¢ãƒ‰ãƒ¬ã‚¹å–å¾—
             inline _T* GetArray(){
                 return this->mp_array;
             }
 
-            //”z—ñƒAƒNƒZƒX
+            //é…åˆ—ã‚¢ã‚¯ã‚»ã‚¹
             inline _T& operator[](u32 i){
                 EVOLUTION_ASSERT(i < this->m_array_count);
                 return mp_array[i];
             }
 
-            //ƒNƒ‰ƒX‚ÌƒRƒs[
+            //ã‚¯ãƒ©ã‚¹ã®ã‚³ãƒ”ãƒ¼
             inline  Array<_T> Copy(){
                 Array<_T> work(this->m_array_count);
                 memcpy(work.mp_array, this->mp_array, sizeof(_T) * this->m_array_count);
                 return work;
             }
 
-            //ƒƒ“ƒo‚Ì“ü‚ê‘Ö‚¦
+            //ãƒ¡ãƒ³ãƒã®å…¥ã‚Œæ›¿ãˆ
             inline void Swap(Array& dest){
                 _T* tmp_array = this->mp_array;
                 u32 tmp_array_count = dest.m_array_count;
@@ -75,13 +75,13 @@ namespace EVOLUTION{
 
             }
 
-            //ƒƒ“ƒo‚Ì“ü‚ê‘Ö‚¦
+            //ãƒ¡ãƒ³ãƒã®å…¥ã‚Œæ›¿ãˆ
             inline void Set(u32 index , const _T& object){
                 EVOLUTION_ASSERT(index < this->m_array_count);
                 this->mp_array[index] = object;
             }
 
-            //ƒƒ“ƒo‚Ì“ü‚ê‘Ö‚¦
+            //ãƒ¡ãƒ³ãƒã®å…¥ã‚Œæ›¿ãˆ
             inline void Set(const _T* pobject, u32 len){
                 EVOLUTION_ASSERT(len <= this->m_array_count);
                 memcpy(this->mp_array, pobject, sizeof(_T) * len);

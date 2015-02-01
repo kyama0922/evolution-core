@@ -277,7 +277,7 @@ A million repetitions of "a"
 #include <stdio.h>
 #include <string.h>
 
-#define LITTLE_ENDIAN /* This should be #define'd if true. */
+//#define LITTLE_ENDIAN /* This should be #define'd if true. */
 /* #define SHA1HANDSOFF * Copies data before messing with it. */
 
 #define rol(value, bits) (((value) << (bits)) | ((value) >> (32 - (bits))))

@@ -9,21 +9,21 @@ namespace EVOLUTION{
     namespace CORE{
         namespace THREAD{
 
-            //ƒpƒ‰ƒƒ^[
+            //ãƒ‘ãƒ©ãƒ¡ã‚¿ãƒ¼
             class IParameter : public IUnknown {
                 EVOLUTION_NOT_DESTRUCTOR(IParameter);
             public:
-                //ì¬‚µ‚½ƒpƒ‰ƒ[ƒ^[”‚ğæ“¾‚µ‚Ü‚·B
+                //ä½œæˆã—ãŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
                 virtual u32 GetParameterCount()const = 0;
-                //ƒpƒ‰ƒ[ƒ^[‚ğì¬‚µ‚Ü‚·B
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’ä½œæˆã—ã¾ã™ã€‚
                 virtual ThreadResult::_RESULT CreateParameters(u32 param_count) = 0;
-                //ƒpƒ‰ƒ[ƒ^[—pƒƒ‚ƒŠ‚ğŠm•Û‚µ‚Ü‚·B
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç”¨ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿ã—ã¾ã™ã€‚
                 virtual ThreadResult::_RESULT CreateParameterMemory(u32 index, u32 param_size) = 0;
-                //ƒpƒ‰ƒ[ƒ^[ƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
                 virtual u32 GetParameterSize(u32 index)const = 0;
-                //ƒpƒ‰ƒ[ƒ^[‚É’l‚ğƒZƒbƒg‚µ‚Ü‚·B
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã«å€¤ã‚’ã‚»ãƒƒãƒˆã—ã¾ã™ã€‚
                 virtual ThreadResult::_RESULT SetParameter(u32 index, const void* val, u32 param_size) = 0;
-                //ƒpƒ‰ƒ[ƒ^[‚ğæ“¾‚µ‚Ü‚·B
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚
                 virtual const void* GetParameter(u32 index)const = 0;
             };
 
@@ -31,64 +31,64 @@ namespace EVOLUTION{
                 EVOLUTION_NOT_DESTRUCTOR(IResult);
             public:
                 virtual ThreadResult::_RESULT CreateResultMemory(u32 value_size) = 0;
-                //Result‚Ìİ’è
+                //Resultã®è¨­å®š
                 virtual ThreadResult::_RESULT SetResult(const void* value, u32 value_size) = 0;
-                //Result‚Ì’l‚ÌƒTƒCƒY
+                //Resultã®å€¤ã®ã‚µã‚¤ã‚º
                 virtual u32 GetResultSize()const = 0;
-                //Result‚Ìæ“¾
+                //Resultã®å–å¾—
                 virtual void* GetResult()const = 0;
             };
 
             class ITask{
             public:
-                //Às
+                //å®Ÿè¡Œ
                 virtual void Execute(const IParameter* parameter, IResult* result) = 0;
-                //ƒ^ƒXƒN‚ªI—¹‚·‚é‚ÆThreadPool‚©‚çŒÄ‚Ño‚¹‚Ü‚·B
+                //ã‚¿ã‚¹ã‚¯ãŒçµ‚äº†ã™ã‚‹ã¨ThreadPoolã‹ã‚‰å‘¼ã³å‡ºã›ã¾ã™ã€‚
                 virtual void OnEndExecute(const IResult* result) = 0;
             };
 
             class IThreadPool :public IUnknown{
                 EVOLUTION_NOT_DESTRUCTOR(IThreadPool);
             public:
-                //ƒ^ƒXƒN‚ÌÀs(ƒ~ƒŠ•b)
+                //ã‚¿ã‚¹ã‚¯ã®å®Ÿè¡Œ(ãƒŸãƒªç§’)
                 virtual void Execute(u32 sleep_ms_time) = 0;
-                //ƒ^ƒXƒN‚Ì“o˜^(ƒXƒŒƒbƒhƒZ[ƒt)
+                //ã‚¿ã‚¹ã‚¯ã®ç™»éŒ²(ã‚¹ãƒ¬ãƒƒãƒ‰ã‚»ãƒ¼ãƒ•)
                 virtual ThreadResult::_RESULT TaskExecute(ITask* task, IParameter* parameter) = 0;
-                //Àsƒ^ƒXƒN”‚ğæ“¾
+                //å®Ÿè¡Œã‚¿ã‚¹ã‚¯æ•°ã‚’å–å¾—
                 virtual s32 TaskExecuteCount()const = 0;
             };
 
 
-            //SemaphoreƒNƒ‰ƒX
+            //Semaphoreã‚¯ãƒ©ã‚¹
             class ISemaphore :public IUnknown{
                 EVOLUTION_NOT_DESTRUCTOR(ISemaphore);
             public:
             };
 
-            //MutexƒNƒ‰ƒX
+            //Mutexã‚¯ãƒ©ã‚¹
             class IMutex :public IUnknown{
                 EVOLUTION_NOT_DESTRUCTOR(IMutex);
             public:
                 
             };
 
-            //ƒXƒŒƒbƒhƒNƒ‰ƒX
+            //ã‚¹ãƒ¬ãƒƒãƒ‰ã‚¯ãƒ©ã‚¹
             class IThread :public IUnknown{
                 EVOLUTION_NOT_DESTRUCTOR(IThread);
             public:
-                //•ÊƒXƒŒƒbƒh‚ÅÀs‚µ‚Ü‚·B
+                //åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ã§å®Ÿè¡Œã—ã¾ã™ã€‚
                 virtual ThreadResult::_RESULT Run(void(*function)(ptr_t address ,const IThread* thread), ptr_t address) = 0;
-                //ƒXƒŒƒbƒh‚ªI—¹‚·‚é‚Ü‚ÅŒÄ‚Ño‚µŒ³‚ÌƒXƒŒƒbƒh‚ğƒuƒƒbƒN‚µ‚Ü‚·
+                //ã‚¹ãƒ¬ãƒƒãƒ‰ãŒçµ‚äº†ã™ã‚‹ã¾ã§å‘¼ã³å‡ºã—å…ƒã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ãƒ–ãƒ­ãƒƒã‚¯ã—ã¾ã™
                 virtual ThreadResult::_RESULT Join() = 0;
-                //ƒXƒŒƒbƒh‚ªI—¹‚·‚é‚Ü‚ÅŒÄ‚Ño‚µŒ³‚ÌƒXƒŒƒbƒh‚ğƒuƒƒbƒN‚µ‚Ü‚·(ƒ^ƒCƒ€ƒAƒEƒg‚ªİ’è‚Å‚«‚Ü‚·B(ms))
+                //ã‚¹ãƒ¬ãƒƒãƒ‰ãŒçµ‚äº†ã™ã‚‹ã¾ã§å‘¼ã³å‡ºã—å…ƒã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ãƒ–ãƒ­ãƒƒã‚¯ã—ã¾ã™(ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆãŒè¨­å®šã§ãã¾ã™ã€‚(ms))
                 virtual ThreadResult::_RESULT Join(u32 time_out) = 0;
-                //ƒXƒŒƒbƒh‚ğƒƒbƒN‚µ‚Ü‚·B
+                //ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ãƒ­ãƒƒã‚¯ã—ã¾ã™ã€‚
                 virtual ThreadResult::_RESULT Lock(IMutex* mutex)const = 0;
-                //ƒXƒŒƒbƒh‚ğƒAƒ“ƒƒbƒN‚µ‚Ü‚·B
+                //ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ã‚¢ãƒ³ãƒ­ãƒƒã‚¯ã—ã¾ã™ã€‚
                 virtual ThreadResult::_RESULT UnLock()const = 0;
-                //ƒXƒŒƒbƒh‚ªÀsó‘Ô‚É‚ ‚é‚©’²‚×‚Ü‚·B
+                //ã‚¹ãƒ¬ãƒƒãƒ‰ãŒå®Ÿè¡ŒçŠ¶æ…‹ã«ã‚ã‚‹ã‹èª¿ã¹ã¾ã™ã€‚
                 virtual bool IsRun()const = 0;
-                //ƒXƒŒƒbƒh‚ªI—¹ó‘Ô‚É‚ ‚é‚©‚Ç‚¤‚©B
+                //ã‚¹ãƒ¬ãƒƒãƒ‰ãŒçµ‚äº†çŠ¶æ…‹ã«ã‚ã‚‹ã‹ã©ã†ã‹ã€‚
                 virtual bool IsEnd()const = 0;
             };
 

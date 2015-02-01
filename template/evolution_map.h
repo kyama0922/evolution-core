@@ -24,13 +24,13 @@ namespace EVOLUTION{
                 TValue m_val;
             };
 
-            //ƒCƒeƒŒ[ƒ^[
+            //ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ãƒ¼
             class iterator{
             public:
-                Node* mp_node;//ƒm[ƒh
-                iterator* mp_parent;//e‚ÌƒCƒeƒŒ[ƒ^
-                iterator* mp_right;//¶‘¤‚ÌƒCƒeƒŒ[ƒ^
-                iterator* mp_left;//‰E‘¤‚ÌƒCƒeƒŒ[ƒ^
+                Node* mp_node;//ãƒãƒ¼ãƒ‰
+                iterator* mp_parent;//è¦ªã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
+                iterator* mp_right;//å·¦å´ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
+                iterator* mp_left;//å³å´ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
                 const Map* _map;
 
                 iterator(const Map* map) :_map(map), mp_node(nullptr), mp_parent(nullptr), mp_left(nullptr), mp_right(nullptr)
@@ -258,9 +258,9 @@ namespace EVOLUTION{
             };
 
         public:
-            u32 m_size;//ƒTƒCƒY
-            iterator* mp_root;//ƒ‹[ƒg
-            iterator* mp_end;//ƒGƒ“ƒhƒ|ƒCƒ“ƒ^
+            u32 m_size;//ã‚µã‚¤ã‚º
+            iterator* mp_root;//ãƒ«ãƒ¼ãƒˆ
+            iterator* mp_end;//ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ã‚¿
 
             struct{
                 u32 remove_0;
@@ -344,7 +344,7 @@ namespace EVOLUTION{
                     return *this->mp_root;
                 }
 
-                //“¯‚¶key‚È‚ç’l‚¾‚¯XV
+                //åŒã˜keyãªã‚‰å€¤ã ã‘æ›´æ–°
 
                 iterator* it = this->mp_root;
                 while (true)
@@ -413,7 +413,7 @@ namespace EVOLUTION{
                     return;
                 }
                 bool end_ptr = false;
-                //ƒm[ƒh‚ğ‚Ğ‚Æ‚Â‚à‚Á‚Ä‚¢‚È‚¢ê‡
+                //ãƒãƒ¼ãƒ‰ã‚’ã²ã¨ã¤ã‚‚æŒã£ã¦ã„ãªã„å ´åˆ
                 if (del_it.mp_right == nullptr && del_it.mp_left == nullptr)
                 {
                     if (del_it.mp_parent->mp_left != nullptr && del_it.mp_parent->mp_left->mp_node == del_it.mp_node)
@@ -428,18 +428,18 @@ namespace EVOLUTION{
                     }
                     debug.remove_0++;
                 }
-                //ƒm[ƒh‚ª‚Ç‚¿‚ç‚©ˆê‚Â‚Ìê‡‚Ü‚½‚ÍƒGƒ“ƒhƒ|ƒCƒ“ƒ^‚ª‚Â‚¢‚Ä‚¢‚½ê‡
+                //ãƒãƒ¼ãƒ‰ãŒã©ã¡ã‚‰ã‹ä¸€ã¤ã®å ´åˆã¾ãŸã¯ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ã‚¿ãŒã¤ã„ã¦ã„ãŸå ´åˆ
                 else if ((del_it.mp_right == this->mp_end || del_it.mp_left == this->mp_end) || del_it.mp_right == nullptr || del_it.mp_left == nullptr)
                 {
                     end_ptr = (del_it.mp_right == this->mp_end || del_it.mp_left == this->mp_end);
-                    //ƒGƒ“ƒhƒ|ƒCƒ“ƒ^‚Ì•t‚¯‘Ö‚¦
+                    //ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ã‚¿ã®ä»˜ã‘æ›¿ãˆ
                     if (end_ptr)
                     {
                         bool rigth;
                         iterator** parent_node = (rigth = (del_it.mp_right == this->mp_end)) ? &del_it.mp_right : &del_it.mp_left;
-                        //ƒGƒ“ƒhƒ|ƒCƒ“ƒ^‚ğŠO‚·
+                        //ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ã‚¿ã‚’å¤–ã™
                         *parent_node = nullptr;
-                        //ƒm[ƒh‚Ìíœ
+                        //ãƒãƒ¼ãƒ‰ã®å‰Šé™¤
                         if (del_it.mp_parent->mp_left != nullptr && del_it.mp_parent->mp_left->mp_node == del_it.mp_node)
                         {
                             EVOLUTION_DELETE(del_it.mp_parent->mp_left->mp_node);
@@ -486,14 +486,14 @@ namespace EVOLUTION{
                         this->m_size--;
                         return;
                     }
-                    //e‚Ìæ“¾
+                    //è¦ªã®å–å¾—
                     iterator* parent = del_it.mp_parent;
-                    //e‚Ì‚Ç‚¿‚ç‚É‚Â‚È‚ª‚Á‚Ä‚¢‚é‚©ŒŸõ
+                    //è¦ªã®ã©ã¡ã‚‰ã«ã¤ãªãŒã£ã¦ã„ã‚‹ã‹æ¤œç´¢
                     iterator** parent_node = nullptr;
                     if (parent != nullptr){
                         parent_node = (parent->mp_right != nullptr && parent->mp_right->mp_node == del_it.mp_node) ? &parent->mp_right : &parent->mp_left;
                     }
-                    //ƒm[ƒhƒf[ƒ^‚Ìíœ
+                    //ãƒãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
                     EVOLUTION_DELETE(del_it.mp_node);
 
 
@@ -501,9 +501,9 @@ namespace EVOLUTION{
                     {
                         if (parent_node)
                         {
-                            //ƒm[ƒh‚Ìíœ
+                            //ãƒãƒ¼ãƒ‰ã®å‰Šé™¤
                             EVOLUTION_DELETE(*parent_node);
-                            //ƒm[ƒh‚Ì•t‚¯‘Ö‚¦
+                            //ãƒãƒ¼ãƒ‰ã®ä»˜ã‘æ›¿ãˆ
                             *parent_node = del_it.mp_right;
                             if (del_it.mp_right){
                                 del_it.mp_right->mp_parent = parent;
@@ -511,7 +511,7 @@ namespace EVOLUTION{
                         }
                         else
                         {
-                            //e‚ª‚¢‚È‚¢‚Ì‚Íƒ‹[ƒg‚È‚Ì‚Åíœ
+                            //è¦ªãŒã„ãªã„ã®ã¯ãƒ«ãƒ¼ãƒˆãªã®ã§å‰Šé™¤
                             EVOLUTION_DELETE(this->mp_root);
                             this->mp_root = del_it.mp_right;
                         }
@@ -520,9 +520,9 @@ namespace EVOLUTION{
                     else{
                         if (parent_node)
                         {
-                            //ƒm[ƒh‚Ìíœ
+                            //ãƒãƒ¼ãƒ‰ã®å‰Šé™¤
                             EVOLUTION_DELETE(*parent_node);
-                            //ƒm[ƒh‚Ì•t‚¯‘Ö‚¦
+                            //ãƒãƒ¼ãƒ‰ã®ä»˜ã‘æ›¿ãˆ
                             *parent_node = del_it.mp_left;
                             if (del_it.mp_left){
                                 del_it.mp_left->mp_parent = parent;
@@ -530,7 +530,7 @@ namespace EVOLUTION{
                         }
                         else
                         {
-                            //e‚ª‚¢‚È‚¢‚Ì‚Íƒ‹[ƒg‚È‚Ì‚Åíœ
+                            //è¦ªãŒã„ãªã„ã®ã¯ãƒ«ãƒ¼ãƒˆãªã®ã§å‰Šé™¤
                             EVOLUTION_DELETE(this->mp_root);
                             this->mp_root = del_it.mp_left;
                         }
@@ -540,9 +540,9 @@ namespace EVOLUTION{
                 }
                 else
                 {
-                    //e‚Ìæ“¾
+                    //è¦ªã®å–å¾—
                     iterator* parent = del_it.mp_parent;
-                    //e‚Ì‚Ç‚¿‚ç‚É‚Â‚È‚ª‚Á‚Ä‚¢‚é‚©ŒŸõ
+                    //è¦ªã®ã©ã¡ã‚‰ã«ã¤ãªãŒã£ã¦ã„ã‚‹ã‹æ¤œç´¢
                     iterator** parent_node = nullptr;
                     if (parent != nullptr)
                     {
@@ -555,20 +555,20 @@ namespace EVOLUTION{
                         node = node->mp_right;
                     };
 
-                    //ƒm[ƒh‚Ì“ü‚ê‘Ö‚¦
+                    //ãƒãƒ¼ãƒ‰ã®å…¥ã‚Œæ›¿ãˆ
                     node->mp_right = del_it.mp_right;
                     del_it.mp_right = nullptr;
-                    //Ÿ‚Ìƒm[ƒh‚Ìe‚Ì“ü‚ê‘Ö‚¦
+                    //æ¬¡ã®ãƒãƒ¼ãƒ‰ã®è¦ªã®å…¥ã‚Œæ›¿ãˆ
                     node->mp_right->mp_parent = node;
-                    //ƒm[ƒh‚Ìe‚É˜AŒ‹‚µ‚Ä‚¢‚½•”•ª‚ğŒ³‚Ìƒm[ƒh‚Ì¶‘¤‚ğ’u‚«Š·‚¦‚é
+                    //ãƒãƒ¼ãƒ‰ã®è¦ªã«é€£çµã—ã¦ã„ãŸéƒ¨åˆ†ã‚’å…ƒã®ãƒãƒ¼ãƒ‰ã®å·¦å´ã‚’ç½®ãæ›ãˆã‚‹
                     del_it.mp_parent->mp_right = node->mp_left;
                     del_it.mp_parent = nullptr;
-                    //Á‹‘ÎÛ‚Ìƒm[ƒh‚Æ“ü‚ê‘Ö‚¦‚é
+                    //æ¶ˆå»å¯¾è±¡ã®ãƒãƒ¼ãƒ‰ã¨å…¥ã‚Œæ›¿ãˆã‚‹
                     if (node != del_it.mp_left)
                     {
                         node->mp_left = del_it.mp_left;
                     }
-                    //ƒm[ƒhƒf[ƒ^‚Ìíœ
+                    //ãƒãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
                     EVOLUTION_DELETE(del_it.mp_node);
                     if (parent != nullptr)
                     {
@@ -577,7 +577,7 @@ namespace EVOLUTION{
                     }
                     else
                     {
-                        //e‚ª‚¢‚È‚¢‚Ì‚Íƒ‹[ƒg‚È‚Ì‚Åíœ
+                        //è¦ªãŒã„ãªã„ã®ã¯ãƒ«ãƒ¼ãƒˆãªã®ã§å‰Šé™¤
                         EVOLUTION_DELETE(this->mp_root);
                         this->mp_root = node;
                     }
@@ -604,7 +604,7 @@ namespace EVOLUTION{
                     }
 
                     
-                    //˜AŒ‹ƒ|ƒCƒ“ƒ^‚Ìíœ
+                    //é€£çµãƒã‚¤ãƒ³ã‚¿ã®å‰Šé™¤
                     if (it->mp_parent != nullptr)
                     {
                         iterator* parent = it->mp_parent;
@@ -630,7 +630,7 @@ namespace EVOLUTION{
                 
             }
 
-            //”z—ñƒAƒNƒZƒX
+            //é…åˆ—ã‚¢ã‚¯ã‚»ã‚¹
             inline TValue& operator[](const TKey& key){
                 iterator it = this->Find(key);
                 if (it == this->mp_end)

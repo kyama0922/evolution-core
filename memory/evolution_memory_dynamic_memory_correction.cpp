@@ -32,9 +32,9 @@ RESULT MemoryNode::QueryInterface(EVOLUTION_IID riid, void **ppvObject){
     else
     {
         *ppvObject = nullptr;
-        return RESULT::E_no_instance;
+        return _RESULT::E_no_instance;
     }
-    return RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
 u32 MemoryNode::Release(){
@@ -46,7 +46,7 @@ u32 MemoryNode::Release(){
 }
 
 RESULT MemoryNode::GetMemoryManager(IDynamicMemoryManager** memory_manager)const{
-    return RESULT::E_unknown;
+    return _RESULT::E_unknown;
 }
 
 ptr_size_t MemoryNode::GetSize()const{
@@ -54,15 +54,15 @@ ptr_size_t MemoryNode::GetSize()const{
 }
 
 RESULT  MemoryNode::Lock(ptr_t* ref_data_ptr)const{
-    return RESULT::E_unknown;
+    return _RESULT::E_unknown;
 }
 
 RESULT  MemoryNode::Lock(void** ref_data_ptr)const{
-    return RESULT::E_unknown;
+    return _RESULT::E_unknown;
 }
 
 RESULT MemoryNode::UnLock()const{
-    return RESULT::E_unknown;
+    return _RESULT::E_unknown;
 }
 
 
@@ -76,7 +76,7 @@ u32 DynamicMemoryManager::AddRef(){
 }
 
 RESULT DynamicMemoryManager::QueryInterface(EVOLUTION_IID riid, void **ppvObject){
-    return RESULT::E_unknown;
+    return _RESULT::E_unknown;
 }
 
 u32 DynamicMemoryManager::Release(){
@@ -99,36 +99,36 @@ DynamicMemoryManager::~DynamicMemoryManager(){
 
 }
 
-//ì¬‚µ‚½Node‚Ì”
+//ä½œæˆã—ãŸNodeã®æ•°
 ptr_size_t DynamicMemoryManager::GetNodeNum(){
     return 0;
 }
 
-//ƒm[ƒh‚Ìì¬
+//ãƒŽãƒ¼ãƒ‰ã®ä½œæˆ
 RESULT DynamicMemoryManager::CreateMemoryNode(IMemoryNode** memory_node, ptr_size_t size){
-    return RESULT::E_unknown;
+    return _RESULT::E_unknown;
 }
 
-//ƒm[ƒh‚ðCompaction‚·‚é
+//ãƒŽãƒ¼ãƒ‰ã‚’Compactionã™ã‚‹
 RESULT DynamicMemoryManager::Compaction(){
-    return RESULT::E_unknown;
+    return _RESULT::E_unknown;
 }
-//ŠÇ—‚µ‚Ä‚éMemoryƒTƒCƒY
+//ç®¡ç†ã—ã¦ã‚‹Memoryã‚µã‚¤ã‚º
 ptr_size_t DynamicMemoryManager::GetHeapSize(){
     return this->m_size;
 }
-//Žg—p’†‚ÌMemoryƒTƒCƒY
+//ä½¿ç”¨ä¸­ã®Memoryã‚µã‚¤ã‚º
 ptr_size_t DynamicMemoryManager::GetUseHeapSize(){
-    return RESULT::E_unknown;
+    return _RESULT::E_unknown;
 }
 
 
-//ƒm[ƒhƒRƒ“ƒpƒNƒVƒ‡ƒ“ƒƒbƒN
+//ãƒŽãƒ¼ãƒ‰ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ãƒ­ãƒƒã‚¯
 RESULT DynamicMemoryManager::LockNodeResistor(IMemoryNode* node){
-    return RESULT::E_unknown;
+    return _RESULT::E_unknown;
 }
 
-//ƒm[ƒhƒRƒ“ƒpƒNƒVƒ‡ƒ“ƒAƒ“ƒƒbƒN
+//ãƒŽãƒ¼ãƒ‰ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 RESULT DynamicMemoryManager::UnLockNodeResistor(IMemoryNode* node){
-    return RESULT::E_unknown;
+    return _RESULT::E_unknown;
 }

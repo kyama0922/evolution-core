@@ -6,7 +6,7 @@ using namespace EVOLUTION::CORE;
 using namespace EVOLUTION::CORE::MEMORY;
 
 
-//ƒƒ‚ƒŠƒ}ƒl[ƒWƒƒ[‚Ìì¬
+//ãƒ¡ãƒ¢ãƒªãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ä½œæˆ
 RESULT EVOLUTION::FUNCTION::CreateTLSFStaticMemoryManager(CORE::MEMORY::IStaticMemoryManager** memory_manager, ptr_size_t size){
     void* p = malloc(sizeof(TLSFMemoryAllocator));
     if (p == nullptr)
@@ -23,7 +23,7 @@ RESULT EVOLUTION::FUNCTION::CreateTLSFStaticMemoryManager(CORE::MEMORY::IStaticM
     return _RESULT::S_ok;
 }
 
-//ƒƒ‚ƒŠƒ}ƒl[ƒWƒƒ[‚Ìì¬
+//ãƒ¡ãƒ¢ãƒªãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ä½œæˆ
 RESULT EVOLUTION::FUNCTION::CreateTLSFStaticMemoryManager(CORE::MEMORY::IStaticMemoryManager** memory_manager, ptr_t pointer, ptr_size_t size){
     TLSFMemoryAllocator* static_memory_manager = new((void*)pointer)TLSFMemoryAllocator(pointer + sizeof(TLSFMemoryAllocator), size - sizeof(TLSFMemoryAllocator));
     if (static_memory_manager == nullptr)
@@ -59,9 +59,9 @@ RESULT TLSFMemoryAllocator::QueryInterface(EVOLUTION_IID riid, void **ppvObject)
     else
     {
         *ppvObject = nullptr;
-        return RESULT::E_no_instance;
+        return _RESULT::E_no_instance;
     }
-    return RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
 u32 TLSFMemoryAllocator::Release(){
@@ -106,43 +106,43 @@ TLSFMemoryAllocator::~TLSFMemoryAllocator(){
 void TLSFMemoryAllocator::Initialize(){
     this->mp_debug_map = new std::map<ptr_t, Debug_Check_Header*>();
 }
-//ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒƒ‚ƒŠ‚ÌŠm•Û
+//ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
 void* TLSFMemoryAllocator::New(ptr_size_t size){
     void* pointer = tlsf_malloc(this->m_tlsf_instance, size);
     this->m_use_memory_size += tlsf_block_size(pointer);
     return pointer;
 }
 
-//ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢”z—ñƒƒ‚ƒŠ‚ÌŠm•Û
+//ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„é…åˆ—ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
 void* TLSFMemoryAllocator::NewArray(ptr_size_t size){
     void* pointer = tlsf_malloc(this->m_tlsf_instance, size);
     this->m_use_memory_size += tlsf_block_size(pointer);
     return pointer;
 }
 
-//ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒm[ƒh‚Ìì¬
+//ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒŽãƒ¼ãƒ‰ã®ä½œæˆ
 void TLSFMemoryAllocator::Delete(void* pointer){
     this->m_use_memory_size -= tlsf_block_size(pointer);
     tlsf_free(this->m_tlsf_instance, pointer);
 }
 
-//ƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒm[ƒh‚Ìì¬
+//ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒŽãƒ¼ãƒ‰ã®ä½œæˆ
 void TLSFMemoryAllocator::DeleteArray(void* pointer){
     this->m_use_memory_size -= tlsf_block_size(pointer);
     tlsf_free(this->m_tlsf_instance, pointer);
 }
 
-//ŠÇ—‚µ‚Ä‚éMemoryƒTƒCƒY
+//ç®¡ç†ã—ã¦ã‚‹Memoryã‚µã‚¤ã‚º
 ptr_size_t TLSFMemoryAllocator::GetHeapSize(){
     return this->m_memory_size;
 }
 
-//Žg—p’†‚ÌMemoryƒTƒCƒY
+//ä½¿ç”¨ä¸­ã®Memoryã‚µã‚¤ã‚º
 ptr_size_t TLSFMemoryAllocator::GetUseHeapSize(){
     return this->m_use_memory_size;
 }
 
-//ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒƒ‚ƒŠ‚ÌŠm•Û
+//ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
 void* TLSFMemoryAllocator::DebugNew(ptr_size_t size, const char* file_name, u32 line){
     ptr_t master_ptr = (ptr_t)this->New(size + sizeof(Debug_Check_Header));
     ptr_t debug_ptr = master_ptr + size;
@@ -154,7 +154,7 @@ void* TLSFMemoryAllocator::DebugNew(ptr_size_t size, const char* file_name, u32 
     return (void*)master_ptr;
 }
 
-//ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢”z—ñƒƒ‚ƒŠ‚ÌŠm•Û
+//ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„é…åˆ—ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
 void* TLSFMemoryAllocator::DebugNewArray(ptr_size_t size, const char* file_name, u32 line){
     ptr_t master_ptr = (ptr_t)this->NewArray(size + sizeof(Debug_Check_Header));
     ptr_t debug_ptr = master_ptr + size;
@@ -166,12 +166,12 @@ void* TLSFMemoryAllocator::DebugNewArray(ptr_size_t size, const char* file_name,
     return (void*)master_ptr;
 }
 
-                //ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢ƒƒ‚ƒŠŠJ•ú
+                //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„ãƒ¡ãƒ¢ãƒªé–‹æ”¾
 void TLSFMemoryAllocator::DebugDelete(void* pointer){
     (*this->mp_debug_map).erase((ptr_t)pointer);
     this->Delete(pointer);
 }
-                //ƒfƒoƒbƒO—pƒRƒ“ƒpƒNƒVƒ‡ƒ“‚³‚ê‚È‚¢”z—ñƒƒ‚ƒŠŠJ•ú
+                //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚³ãƒ³ãƒ‘ã‚¯ã‚·ãƒ§ãƒ³ã•ã‚Œãªã„é…åˆ—ãƒ¡ãƒ¢ãƒªé–‹æ”¾
 void TLSFMemoryAllocator::DebugDeleteArray(void* pointer){
     (*this->mp_debug_map).erase((ptr_t)pointer);
     this->Delete(pointer);

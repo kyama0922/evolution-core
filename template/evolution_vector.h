@@ -7,7 +7,7 @@ namespace EVOLUTION{
 	namespace TEMPLATE{
         //typedef int T;
 
-		//‡˜ƒRƒ“ƒeƒi
+		//é †åºã‚³ãƒ³ãƒ†ãƒŠ
 		template<class T>
         class Vector{
         private:
@@ -27,64 +27,64 @@ namespace EVOLUTION{
                EVOLUTION_DELETE_ARRAY(mp_array);
             }
 
-            ////ƒxƒNƒ^‚É—v‘f‚ğŠ„‚è“–‚Ä‚é
+            ////ãƒ™ã‚¯ã‚¿ã«è¦ç´ ã‚’å‰²ã‚Šå½“ã¦ã‚‹
             //void assign(){
             //}
 
-            //w’è‚µ‚½ˆÊ’u‚Ì—v‘f‚ğ•Ô‚·
+            //æŒ‡å®šã—ãŸä½ç½®ã®è¦ç´ ã‚’è¿”ã™
             T at(s32 index) {
                 return mp_array[index];
             }
 
-            //// ÅI—v‘f‚ğ•Ô‚·
+            //// æœ€çµ‚è¦ç´ ã‚’è¿”ã™
             //void back(){
             //
             //}
-            //// æ“ª‚ğw‚·ƒCƒeƒŒ[ƒ^‚ğ•Ô‚·
+            //// å…ˆé ­ã‚’æŒ‡ã™ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’è¿”ã™
             //void begin(){
             //
             //}
-            //// ƒxƒNƒ^‚ª•Û‚Å‚«‚é—v‘f”
+            //// ãƒ™ã‚¯ã‚¿ãŒä¿æŒã§ãã‚‹è¦ç´ æ•°
             //void capacity(){
 
             //}
 
-            // ‘S‚Ä‚Ì—v‘f‚ğíœ‚·‚é
+            // å…¨ã¦ã®è¦ç´ ã‚’å‰Šé™¤ã™ã‚‹
             void clear(){
                 this->m_use_array_count = 0;
             }
-            // ƒxƒNƒ^‚ª‹ó‚È‚ç^
+            // ãƒ™ã‚¯ã‚¿ãŒç©ºãªã‚‰çœŸ
             bool empty(){
                 return this->mp_array == nullptr;
             }
-            //// ––”ö‚ğw‚·ƒCƒeƒŒ[ƒ^‚ğ•Ô‚·
+            //// æœ«å°¾ã‚’æŒ‡ã™ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’è¿”ã™
             //void end(){
 
             //}
-            ////—v‘f‚ğíœ‚·‚é
+            ////è¦ç´ ã‚’å‰Šé™¤ã™ã‚‹
             //void erase() {
 
             //}
-            ////æ“ª—v‘f‚ğ•Ô‚·
+            ////å…ˆé ­è¦ç´ ã‚’è¿”ã™
             //void front() {
 
             //}
-            ////—v‘f‚ğƒxƒNƒ^‚É‘}“ü‚·‚é
+            ////è¦ç´ ã‚’ãƒ™ã‚¯ã‚¿ã«æŒ¿å…¥ã™ã‚‹
             //void insert() {
 
             //}
-            //ƒxƒNƒ^‚ª•Û‚Å‚«‚éÅ‘å—v‘f”‚ğ•Ô‚·
+            //ãƒ™ã‚¯ã‚¿ãŒä¿æŒã§ãã‚‹æœ€å¤§è¦ç´ æ•°ã‚’è¿”ã™
             u32 max_size() {
                 return this->m_max_array_count;
             }
-            // ÅI—v‘f‚ğíœ‚·‚é
+            // æœ€çµ‚è¦ç´ ã‚’å‰Šé™¤ã™ã‚‹
             void pop_back(){
                 if (0 < this->m_use_array_count){
                     this->m_use_array_count--;
                 }
             }
 
-            // ƒxƒNƒ^‚Ì––”ö‚É—v‘f‚ğ’Ç‰Á‚·‚é
+            // ãƒ™ã‚¯ã‚¿ã®æœ«å°¾ã«è¦ç´ ã‚’è¿½åŠ ã™ã‚‹
             void push_back(const T& val){
                 if (this->m_max_array_count <= this->m_use_array_count){
                     this->reserve((1+this->m_max_array_count) * 2);
@@ -92,16 +92,16 @@ namespace EVOLUTION{
                 this->mp_array[this->m_use_array_count++] = val;
             }
 
-            ////ƒxƒNƒ^––”ö‚ğw‚·ƒŠƒo[ƒXƒCƒeƒŒ[ƒ^‚ğ•Ô‚·
+            ////ãƒ™ã‚¯ã‚¿æœ«å°¾ã‚’æŒ‡ã™ãƒªãƒãƒ¼ã‚¹ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’è¿”ã™
             //void rbegin() {
 
             //}
-            ////ƒxƒNƒ^æ“ª‚ğw‚·ƒŠƒo[ƒXƒCƒeƒŒ[ƒ^‚ğ•Ô‚·
+            ////ãƒ™ã‚¯ã‚¿å…ˆé ­ã‚’æŒ‡ã™ãƒªãƒãƒ¼ã‚¹ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’è¿”ã™
             //void rend() {
 
             //}
 
-            // ƒxƒNƒ^‚ª•Û‚Å‚«‚é—v‘f”‚ğİ’è‚·‚é
+            // ãƒ™ã‚¯ã‚¿ãŒä¿æŒã§ãã‚‹è¦ç´ æ•°ã‚’è¨­å®šã™ã‚‹
             void reserve(s32 size){
                 this->m_max_array_count = size;
                 T* work = NEW T[this->m_max_array_count];
@@ -112,16 +112,16 @@ namespace EVOLUTION{
                 this->mp_array = work;
             }
 
-            //ƒxƒNƒ^‚ÌƒTƒCƒY‚ğ•ÏX‚·‚é
+            //ãƒ™ã‚¯ã‚¿ã®ã‚µã‚¤ã‚ºã‚’å¤‰æ›´ã™ã‚‹
             void resize(s32 size){
                 this->m_use_array_count = size;
             }
-            //ƒxƒNƒ^’†‚Ì—v‘f”‚ğ•Ô‚·
+            //ãƒ™ã‚¯ã‚¿ä¸­ã®è¦ç´ æ•°ã‚’è¿”ã™
             s32 size() {
                 return this->m_use_array_count;
             }
 
-            // “ñ‚Â‚ÌƒxƒNƒ^‚ğ“ü‚ê‘Ö‚¦‚é
+            // äºŒã¤ã®ãƒ™ã‚¯ã‚¿ã‚’å…¥ã‚Œæ›¿ãˆã‚‹
             void swap(Vector& t){
                 this->mp_array = (T*)((ptr_t)t.mp_array ^ (ptr_t)this->mp_array);
                 t.mp_array = (T*)((ptr_t)this->mp_array ^ (ptr_t)t.mp_array);

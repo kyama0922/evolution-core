@@ -5,155 +5,151 @@ using namespace EVOLUTION::CORE;
 using namespace EVOLUTION::CORE::FILE;
 
 //IUnknown
-u32 FileWrite::AddRef(){
+
+u32 FileWrite::AddRef() {
     return m_instance_counter.AddRef();
 }
 
-RESULT FileWrite::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
-    {
-        *ppvObject = static_cast<IUnknown*>(this);
+RESULT FileWrite::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject) {
+    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown)) {
+        *ppvObject = static_cast<IUnknown*> (this);
         this->AddRef();
-    }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile))
-    {
-        *ppvObject = static_cast<IFile*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile)) {
+        *ppvObject = static_cast<IFile*> (this);
         this->AddRef();
-    }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileWrite))
-    {
-        *ppvObject = static_cast<IFileWrite*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileWrite)) {
+        *ppvObject = static_cast<IFileWrite*> (this);
         this->AddRef();
-    }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_FileWrite))
-    {
-        *ppvObject = static_cast<FileWrite*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_FileWrite)) {
+        *ppvObject = static_cast<FileWrite*> (this);
         this->AddRef();
-    }
-    else
-    {
+    } else {
         *ppvObject = nullptr;
-        return RESULT::E_no_instance;
+        return _RESULT::E_no_instance;
     }
 
-    return RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
-u32 FileWrite::Release(){
+u32 FileWrite::Release() {
     u32 counter = this->m_instance_counter.Release();
-    if (counter == 0){
+    if (counter == 0) {
         delete this;
     }
     return counter;
 }
 
-FileWrite::FileWrite() :mp_fp(nullptr), mp_file_name(nullptr){
+FileWrite::FileWrite() : mp_fp(nullptr), mp_file_name(nullptr) {
 
 }
 
-FileWrite::~FileWrite(){
-    if (this->mp_fp)
-    {
+FileWrite::~FileWrite() {
+    if (this->mp_fp) {
         fclose(this->mp_fp);
     }
-    EVOLUTION_DELETE_ARRAY(this->mp_file_name);
+    c8* ptr = (c8*)this->mp_file_name;
+    this->mp_file_name = nullptr;
+    EVOLUTION_DELETE_ARRAY(ptr);
 }
 
-RESULT FileWrite::Create(const c8* filename, Mode::_MODE mode){
+RESULT FileWrite::Create(const c8* filename, Mode::_MODE mode) {
     u32 file_name_length = FUNCTION::Strlen(filename);
     this->mp_file_name = new c8[file_name_length + 1];
 
     //strcopy
     const c8* s = filename;
     c8* d = (c8*)this->mp_file_name;
-    while (*d++ = *s++){}
-
-    switch (mode)
-    {
-    case Mode::_NEW:
-        fopen_s(&this->mp_fp, (c8*)this->mp_file_name, "wb");
-        break;
-    case Mode::_APPEND:
-        fopen_s(&this->mp_fp, (c8*)this->mp_file_name, "ab");
-        break;
+    while (*d++ = *s++) {
     }
 
-    if (this->mp_fp == nullptr)
-    {
-        return  _RESULT::E_unknown;
+    switch (mode) {
+        case Mode::_NEW_:
+            this->mp_fp = fopen((c8*)this->mp_file_name, "wb");
+            break;
+        case Mode::_APPEND_:
+            this->mp_fp = fopen((c8*)this->mp_file_name, "ab");
+            break;
     }
-    return  _RESULT::S_ok;
+
+    if (this->mp_fp == nullptr) {
+        return _RESULT::E_unknown;
+    }
+    return _RESULT::S_ok;
 }
 
-RESULT FileWrite::Create(const c16* filename, Mode::_MODE mode){
+RESULT FileWrite::Create(const c16* filename, Mode::_MODE mode) {
     u32 file_name_length = FUNCTION::Strlen(filename);
-    this->mp_file_name = new c16[file_name_length + 1];
+    this->mp_file_name = new c8[file_name_length + 1];
 
-    //strcopy
-    const c16* s = filename;
-    c16* d = (c16*)this->mp_file_name;
-    while (*d++ = *s++){}
+    wcstombs((c8*)this->mp_file_name, filename, file_name_length);
 
-    switch (mode)
-    {
-    case Mode::_NEW:
-        _wfopen_s(&this->mp_fp, (c16*) this->mp_file_name, L"wb");
-        break;
-    case Mode::_APPEND:
-        _wfopen_s(&this->mp_fp, (c16*) this->mp_file_name, L"ab");
-        break;
+    switch (mode) {
+        case Mode::_NEW_:
+            this->mp_fp = fopen((c8*) this->mp_file_name, "wb");
+            break;
+        case Mode::_APPEND_:
+            this->mp_fp = fopen((c8*) this->mp_file_name, "ab");
+            break;
     }
 
-    if (this->mp_fp == nullptr)
-    {
-        return  _RESULT::E_unknown;
+    if (this->mp_fp == nullptr) {
+        return _RESULT::E_unknown;
     }
-    return  _RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
-//ƒtƒ@ƒCƒ‹‚ÌƒTƒCƒY‚ÌŽæ“¾
-u64 FileWrite::GetFileSize()const{
-    fpos_t now_pos = this->GetPos();
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚µã‚¤ã‚ºã®å–å¾—
+
+u64 FileWrite::GetFileSize()const {
+    u64 now_pos = this->GetPos();
     fseek(this->mp_fp, 0, SEEK_END);
-    fpos_t file_size = this->GetPos();
+    u64 file_size = this->GetPos();
     this->SetPos(now_pos);
     return file_size;
 }
 
-//ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ðÝ’è
-void FileWrite::SetPos(const u64& index)const{
-    fsetpos(this->mp_fp, (fpos_t*)&index);
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’è¨­å®š
+
+void FileWrite::SetPos(const u64& index)const {
+    fpos64_t pos;
+    pos.__pos = index;
+    fsetpos64(this->mp_fp, (fpos64_t*) & pos);
 }
 
-//ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ðŽæ“¾
-u64 FileWrite::GetPos()const{
-    fpos_t pos;
-    fgetpos(this->mp_fp, &pos);
-    return pos;
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’å–å¾—
+
+u64 FileWrite::GetPos()const {
+    fpos64_t pos;
+    fgetpos64(this->mp_fp, &pos);
+    return pos.__pos;
 }
 
-//ƒtƒ@ƒCƒ‹‚ÌI’[Šm”F
-bool FileWrite::IsEof()const{
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®çµ‚ç«¯ç¢ºèª
+
+bool FileWrite::IsEof()const {
     return feof(this->mp_fp) == 0;
 }
 
-//ƒtƒ@ƒCƒ‹‚ðƒtƒ‰ƒbƒVƒ…‚µ‚Ü‚·B
-void FileWrite::Flash(){
-    if (this->mp_fp){
+//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã—ã¾ã™ã€‚
+
+void FileWrite::Flash() {
+    if (this->mp_fp) {
         fflush(this->mp_fp);
     }
 }
 
-//ƒtƒ@ƒCƒ‹‚ð•Â‚¶‚é
-void FileWrite::Close(){
-    if (this->mp_fp){
+//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
+
+void FileWrite::Close() {
+    if (this->mp_fp) {
         fclose(this->mp_fp);
     }
     this->mp_fp = nullptr;
 }
 
-//ƒf[ƒ^‚Ì“Ç‚Ýž‚Ý
-s32 FileWrite::Write(void* data, u32 length){
+//ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
+
+s32 FileWrite::Write(void* data, u32 length) {
     return fwrite(data, length, 1, this->mp_fp);
 }
 
@@ -161,159 +157,154 @@ s32 FileWrite::Write(void* data, u32 length){
 //          TextFileRead
 //---------------------------------------------
 //IUnknown
-u32 TextFileWrite::AddRef(){
+
+u32 TextFileWrite::AddRef() {
     return m_instance_counter.AddRef();
 }
 
-RESULT TextFileWrite::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
-    {
-        *ppvObject = static_cast<IUnknown*>(this);
+RESULT TextFileWrite::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject) {
+    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown)) {
+        *ppvObject = static_cast<IUnknown*> (this);
         this->AddRef();
-    }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile))
-    {
-        *ppvObject = static_cast<IFile*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile)) {
+        *ppvObject = static_cast<IFile*> (this);
         this->AddRef();
-    }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileWrite))
-    {
-        *ppvObject = static_cast<IFileWrite*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileWrite)) {
+        *ppvObject = static_cast<IFileWrite*> (this);
         this->AddRef();
-    }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_TextFileWrite))
-    {
-        *ppvObject = static_cast<TextFileWrite*>(this);
+    } else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_TextFileWrite)) {
+        *ppvObject = static_cast<TextFileWrite*> (this);
         this->AddRef();
-    }
-    else
-    {
+    } else {
         *ppvObject = nullptr;
-        return RESULT::E_no_instance;
+        return _RESULT::E_no_instance;
     }
 
-    return RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
-u32 TextFileWrite::Release(){
+u32 TextFileWrite::Release() {
     u32 counter = this->m_instance_counter.Release();
-    if (counter == 0){
+    if (counter == 0) {
         delete this;
     }
     return counter;
 }
 
-
-TextFileWrite::TextFileWrite() :mp_fp(nullptr), mp_file_name(nullptr){
+TextFileWrite::TextFileWrite() : mp_fp(nullptr), mp_file_name(nullptr) {
 
 }
 
-TextFileWrite::~TextFileWrite(){
-    if (this->mp_fp)
-    {
+TextFileWrite::~TextFileWrite() {
+    if (this->mp_fp) {
         fclose(this->mp_fp);
     }
-    EVOLUTION_DELETE_ARRAY(this->mp_file_name);
+    c8* ptr = (c8*)this->mp_file_name;
+    this->mp_file_name = nullptr;
+    EVOLUTION_DELETE_ARRAY(ptr);
 }
 
-RESULT TextFileWrite::Create(const c8* filename, Mode::_MODE mode){
+RESULT TextFileWrite::Create(const c8* filename, Mode::_MODE mode) {
     u32 file_name_length = FUNCTION::Strlen(filename);
     this->mp_file_name = new c8[file_name_length + 1];
 
     //strcopy
     const c8* s = filename;
     c8* d = (c8*)this->mp_file_name;
-    while (*d++ = *s++){}
-
-    switch (mode)
-    {
-    case Mode::_NEW:
-        fopen_s(&this->mp_fp, (c8*)this->mp_file_name, "w");
-        break;
-    case Mode::_APPEND:
-        fopen_s(&this->mp_fp, (c8*)this->mp_file_name, "a");
-        break;
+    while (*d++ = *s++) {
     }
 
-    if (this->mp_fp == nullptr)
-    {
-        return  _RESULT::E_unknown;
+    switch (mode) {
+        case Mode::_NEW_:
+            this->mp_fp = fopen((c8*)this->mp_file_name, "w");
+            break;
+        case Mode::_APPEND_:
+            this->mp_fp = fopen((c8*)this->mp_file_name, "a");
+            break;
     }
-    return  _RESULT::S_ok;
+
+    if (this->mp_fp == nullptr) {
+        return _RESULT::E_unknown;
+    }
+    return _RESULT::S_ok;
 }
 
-RESULT TextFileWrite::Create(const c16* filename, Mode::_MODE mode){
+RESULT TextFileWrite::Create(const c16* filename, Mode::_MODE mode) {
     u32 file_name_length = FUNCTION::Strlen(filename);
-    this->mp_file_name = new c16[file_name_length + 1];
+    this->mp_file_name = new c8[file_name_length + 1];
 
-    //strcopy
-    const c16* s = filename;
-    c16* d = (c16*)this->mp_file_name;
-    while (*d++ = *s++){}
+    wcstombs((c8*)this->mp_file_name, filename, file_name_length);
 
-    switch (mode)
-    {
-    case Mode::_NEW:
-        _wfopen_s(&this->mp_fp, (c16*) this->mp_file_name, L"w");
-        break;
-    case Mode::_APPEND:
-        _wfopen_s(&this->mp_fp, (c16*) this->mp_file_name, L"a");
-        break;
+    switch (mode) {
+        case Mode::_NEW_:
+            this->mp_fp = fopen((c8*) this->mp_file_name, "w");
+            break;
+        case Mode::_APPEND_:
+            this->mp_fp = fopen((c8*) this->mp_file_name, "a");
+            break;
     }
 
-    if (this->mp_fp == nullptr)
-    {
-        return  _RESULT::E_unknown;
+    if (this->mp_fp == nullptr) {
+        return _RESULT::E_unknown;
     }
-    return  _RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
-//ƒtƒ@ƒCƒ‹‚ÌƒTƒCƒY‚ÌŽæ“¾
-u64 TextFileWrite::GetFileSize()const{
-    fpos_t now_pos = this->GetPos();
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚µã‚¤ã‚ºã®å–å¾—
+
+u64 TextFileWrite::GetFileSize()const {
+    u64 now_pos = this->GetPos();
     fseek(this->mp_fp, 0, SEEK_END);
-    fpos_t file_size = this->GetPos();
+    u64 file_size = this->GetPos();
     this->SetPos(now_pos);
     return file_size;
 }
 
-//ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ðÝ’è
-void TextFileWrite::SetPos(const u64& index)const{
-    fsetpos(this->mp_fp, (fpos_t*)&index);
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’è¨­å®š
+
+void TextFileWrite::SetPos(const u64& index)const {
+    fpos64_t pos;
+    pos.__pos = index;
+    fsetpos64(this->mp_fp, (fpos64_t*) & pos);
 }
 
-//ƒtƒ@ƒCƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚Ì‚ðŽæ“¾
-u64 TextFileWrite::GetPos()const{
-    fpos_t pos;
-    fgetpos(this->mp_fp, &pos);
-    return pos;
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚’å–å¾—
+
+u64 TextFileWrite::GetPos()const {
+    fpos64_t pos;
+    fgetpos64(this->mp_fp, &pos);
+    return pos.__pos;
 }
 
-//ƒtƒ@ƒCƒ‹‚ÌI’[Šm”F
-bool TextFileWrite::IsEof()const{
+//ãƒ•ã‚¡ã‚¤ãƒ«ã®çµ‚ç«¯ç¢ºèª
+
+bool TextFileWrite::IsEof()const {
     return feof(this->mp_fp) == 0;
 }
 
-//ƒtƒ@ƒCƒ‹‚ðƒtƒ‰ƒbƒVƒ…‚µ‚Ü‚·B
-void TextFileWrite::Flash(){
-    if (this->mp_fp){
+//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã—ã¾ã™ã€‚
+
+void TextFileWrite::Flash() {
+    if (this->mp_fp) {
         fflush(this->mp_fp);
     }
 }
 
-//ƒtƒ@ƒCƒ‹‚ð•Â‚¶‚é
-void TextFileWrite::Close(){
-    if (this->mp_fp){
+//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
+
+void TextFileWrite::Close() {
+    if (this->mp_fp) {
         fclose(this->mp_fp);
     }
     this->mp_fp = nullptr;
 }
 
-//ƒf[ƒ^‚Ì“Ç‚Ýž‚Ý
-s32 TextFileWrite::Write(void* data, u32 length){
+//ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
+
+s32 TextFileWrite::Write(void* data, u32 length) {
     return fwrite(data, length, 1, this->mp_fp);
 }
 
-s32 TextFileWrite::Puts(const c8* text){
+s32 TextFileWrite::Puts(const c8* text) {
     return fputs(text, this->mp_fp);
 }

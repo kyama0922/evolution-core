@@ -3,18 +3,19 @@
 
 
 #include "evolution_timer_interface.h"
-#include <Windows.h>
-namespace EVOLUTION{
-    namespace CORE{
-        namespace TIMER{
+#include <sys/time.h>
 
-            //ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ªƒXƒ^[ƒg‚µ‚Ä‚©‚ç‚ÌŠÔ
-            class HighQualityApplicationCounter : public IApplicationCounter{
+namespace EVOLUTION {
+    namespace CORE {
+        namespace TIMER {
+
+            //ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒã‚¹ã‚¿ãƒ¼ãƒˆã—ã¦ã‹ã‚‰ã®æ™‚é–“
+
+            class HighQualityApplicationCounter : public IApplicationCounter {
             private:
                 EVOLUTION::InstanceCounter m_instance_counter;
 
-                LARGE_INTEGER m_clock;
-                LARGE_INTEGER m_start;
+                timeval m_start;
 
             public:
                 //IUnknown
@@ -27,18 +28,19 @@ namespace EVOLUTION{
 
                 RESULT Create();
 
-                //ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ªŠJn‚µ‚Ä‚©‚ç‚ÌŒo‰ßŠÔ
+                //ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒé–‹å§‹ã—ã¦ã‹ã‚‰ã®çµŒéæ™‚é–“
                 u64 GetMilliSecondU64()const;
-                //ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ªŠJn‚µ‚Ä‚©‚ç‚ÌŒo‰ßŠÔ
+                //ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒé–‹å§‹ã—ã¦ã‹ã‚‰ã®çµŒéæ™‚é–“
                 u32 GetMilliSecondU32()const;
             };
 
-            //ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ªƒXƒ^[ƒg‚µ‚Ä‚©‚ç‚ÌŠÔ
-            class ApplicationCounter : public IApplicationCounter{
+            //ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒã‚¹ã‚¿ãƒ¼ãƒˆã—ã¦ã‹ã‚‰ã®æ™‚é–“
+
+            class ApplicationCounter : public IApplicationCounter {
             private:
                 EVOLUTION::InstanceCounter m_instance_counter;
 
-                u32 m_start;
+                timeval m_start;
 
             public:
                 //IUnknown
@@ -51,14 +53,15 @@ namespace EVOLUTION{
 
                 RESULT Create();
 
-                //ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ªŠJn‚µ‚Ä‚©‚ç‚ÌŒo‰ßŠÔ
+                //ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒé–‹å§‹ã—ã¦ã‹ã‚‰ã®çµŒéæ™‚é–“
                 u64 GetMilliSecondU64()const;
-                //ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ªŠJn‚µ‚Ä‚©‚ç‚ÌŒo‰ßŠÔ
+                //ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒé–‹å§‹ã—ã¦ã‹ã‚‰ã®çµŒéæ™‚é–“
                 u32 GetMilliSecondU32()const;
             };
 
-            //ƒXƒgƒbƒvƒEƒHƒbƒ`ƒNƒ‰ƒX
-            class StopWatch : public IStopWatch{
+            //ã‚¹ãƒˆãƒƒãƒ—ã‚¦ã‚©ãƒƒãƒã‚¯ãƒ©ã‚¹
+
+            class StopWatch : public IStopWatch {
             private:
                 EVOLUTION::InstanceCounter m_instance_counter;
                 u32 m_start_time;
@@ -79,20 +82,20 @@ namespace EVOLUTION{
                 RESULT Create();
 
 
-                //“®‚©‚·
+                //å‹•ã‹ã™
                 void Start();
-                //’â~
+                //åœæ­¢
                 void Stop();
-                //ˆê’â~
+                //ä¸€æ™‚åœæ­¢
                 void Pause();
-                //ÄŠJ
+                //å†é–‹
                 void RePause();
-                //“®‚©‚µ‚Ä‚¢‚é
+                //å‹•ã‹ã—ã¦ã„ã‚‹
                 bool IsStart()const;
-                
-                //Œ»İŠÔ‚Ìæ“¾(millisecond)
+
+                //ç¾åœ¨æ™‚é–“ã®å–å¾—(millisecond)
                 u32 GetMilliSecondU32()const;
-                //Œ»İŠÔ‚Ìæ“¾(second)
+                //ç¾åœ¨æ™‚é–“ã®å–å¾—(second)
                 u32 GetSecondU32()const;
             };
         }
@@ -100,19 +103,19 @@ namespace EVOLUTION{
     //-------------------------------------------------------
     //EVOLUTION Globally Unique Identifier
     //-------------------------------------------------------
-    namespace EVOLUTION_GUID{
+    namespace EVOLUTION_GUID {
         // {1829B87D-2030-4094-8BA5-584AA279AC44}
-        static const EVOLUTION_IID IID_HighQualityApplicationCounter =
-        { 0x1829b87d, 0x2030, 0x4094, { 0x8b, 0xa5, 0x58, 0x4a, 0xa2, 0x79, 0xac, 0x44 } };
+        static const EVOLUTION_IID IID_HighQualityApplicationCounter = {0x1829b87d, 0x2030, 0x4094,
+            { 0x8b, 0xa5, 0x58, 0x4a, 0xa2, 0x79, 0xac, 0x44}};
 
 
         // {DDDE664B-B647-4366-834F-9CE89DF0386B}
-        static const EVOLUTION_IID IID_ApplicationCounter =
-        { 0xddde664b, 0xb647, 0x4366, { 0x83, 0x4f, 0x9c, 0xe8, 0x9d, 0xf0, 0x38, 0x6b } };
+        static const EVOLUTION_IID IID_ApplicationCounter = {0xddde664b, 0xb647, 0x4366,
+            { 0x83, 0x4f, 0x9c, 0xe8, 0x9d, 0xf0, 0x38, 0x6b}};
 
         // {51BB0CBB-40D5-4bee-BCCF-F96DF66D6910}
-        static const EVOLUTION_IID IID_StopWatch =
-        { 0x51bb0cbb, 0x40d5, 0x4bee, { 0xbc, 0xcf, 0xf9, 0x6d, 0xf6, 0x6d, 0x69, 0x10 } };
+        static const EVOLUTION_IID IID_StopWatch = {0x51bb0cbb, 0x40d5, 0x4bee,
+            { 0xbc, 0xcf, 0xf9, 0x6d, 0xf6, 0x6d, 0x69, 0x10}};
     }
 
 }

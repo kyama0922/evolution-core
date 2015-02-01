@@ -1,4 +1,4 @@
-﻿#ifndef __EVOLUTION_STACK_MEMORY_MANAGER_H__
+#ifndef __EVOLUTION_STACK_MEMORY_MANAGER_H__
 #define __EVOLUTION_STACK_MEMORY_MANAGER_H__
 
 #include <evolution_type.h>

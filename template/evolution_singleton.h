@@ -10,7 +10,7 @@ namespace EVOLUTION{
             virtual ~IPublicObject(){}
         };
 
-        //ƒVƒ“ƒOƒ‹ƒgƒ“ƒeƒ“ƒvƒŒ[ƒg
+        //ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ
         template <class _T>
         class SingletonManager : public IPublicObject{
         private:
@@ -30,7 +30,7 @@ namespace EVOLUTION{
                 }_C(this);
             }
         public:
-            //ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìæ“¾
+            //ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å–å¾—
             static _T* GetInstance(void)
             {
                 static _T* myself = nullptr;

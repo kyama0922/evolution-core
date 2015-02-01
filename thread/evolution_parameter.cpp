@@ -31,10 +31,10 @@ RESULT Parameter::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject
     else
     {
         *ppvObject = nullptr;
-        return RESULT::E_no_instance;
+        return _RESULT::E_no_instance;
     }
 
-    return RESULT::S_ok;
+    return _RESULT::S_ok;
 }
 
 u32 Parameter::Release(){
@@ -61,12 +61,12 @@ Parameter::~Parameter(){
     EVOLUTION_DELETE_ARRAY(this->mp_parameter);
 }
 
-//ì¬‚µ‚½ƒpƒ‰ƒ[ƒ^[”‚ðŽæ“¾‚µ‚Ü‚·B
+//ä½œæˆã—ãŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
 u32 Parameter::GetParameterCount()const{
     return this->m_parameter_count;
 }
 
-//ƒpƒ‰ƒ[ƒ^[‚ðì¬‚µ‚Ü‚·B
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’ä½œæˆã—ã¾ã™ã€‚
 ThreadResult::_RESULT Parameter::CreateParameters(u32 param_count) {
     m_parameter_count = param_count;
     this->mp_parameter = NEW Parameter::_Parameter[this->m_parameter_count];
@@ -78,7 +78,7 @@ ThreadResult::_RESULT Parameter::CreateParameters(u32 param_count) {
     return ThreadResult::RESULT_OK;
 }
 
-//ƒpƒ‰ƒ[ƒ^[—pƒƒ‚ƒŠ‚ðŠm•Û‚µ‚Ü‚·B
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç”¨ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿ã—ã¾ã™ã€‚
 ThreadResult::_RESULT Parameter::CreateParameterMemory(u32 index, u32 param_size){
     if (this->m_parameter_count < index){
        return ThreadResult::PARAMETER_INDEX_OVER_FAILED;
@@ -92,12 +92,12 @@ ThreadResult::_RESULT Parameter::CreateParameterMemory(u32 index, u32 param_size
 
     return ThreadResult::RESULT_OK;
 }
-//ƒpƒ‰ƒ[ƒ^[ƒTƒCƒY‚ðŽæ“¾‚µ‚Ü‚·B
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
 u32 Parameter::GetParameterSize(u32 index)const{
     return this->mp_parameter[index].size;
 }
 
-//ƒpƒ‰ƒ[ƒ^[‚É’l‚ðƒZƒbƒg‚µ‚Ü‚·B
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã«å€¤ã‚’ã‚»ãƒƒãƒˆã—ã¾ã™ã€‚
 ThreadResult::_RESULT Parameter::SetParameter(u32 index,const void* val, u32 param_size){
     if (this->m_parameter_count < index){
         return ThreadResult::PARAMETER_INDEX_OVER_FAILED;
@@ -116,7 +116,7 @@ ThreadResult::_RESULT Parameter::SetParameter(u32 index,const void* val, u32 par
     return ThreadResult::RESULT_OK;
 }
 
-//ƒpƒ‰ƒ[ƒ^[‚ðŽæ“¾‚µ‚Ü‚·B
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚
 const void* Parameter::GetParameter(u32 index)const{
     if (this->m_parameter_count < index){
         return nullptr;

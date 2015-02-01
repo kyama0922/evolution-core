@@ -5,11 +5,11 @@ using namespace EVOLUTION;
 using namespace EVOLUTION::FUNCTION;
 
 
-//•¶š‚Ì’·‚³‚ğæ“¾‚·‚é
+//æ–‡å­—ã®é•·ã•ã‚’å–å¾—ã™ã‚‹
 u32 EVOLUTION::FUNCTION::Strlen(const c8* src){
     return (u32)strlen(src);
 }
-//•¶š‚Ì’·‚³‚ğæ“¾‚·‚é
+//æ–‡å­—ã®é•·ã•ã‚’å–å¾—ã™ã‚‹
 u32 EVOLUTION::FUNCTION::Strlen(const c16* src){
     return (u32)wcslen(src);
 }
