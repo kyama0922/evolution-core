@@ -57,7 +57,7 @@ mp_taskinfo_queue_first(nullptr) {
     this->mp_taskinfo_queue_last = this->mp_taskinfo_queue_root;
     this->mp_taskinfo_queue_first = this->mp_taskinfo_queue_root;
 
-    //ã‚¹ãƒ¬ãƒƒãƒ‰çŠ¶æ…‹ã‚’åˆæœŸåŒ–
+    //ƒXƒŒƒbƒhó‘Ô‚ğ‰Šú‰»
     this->m_flag_cout = (pool_count / (sizeof (u32) * 8)) + 1;
     this->mp_thread_use_flag = NEW u32[this->m_flag_cout];
 
@@ -80,7 +80,7 @@ mp_taskinfo_queue_first(nullptr) {
 ThreadPool::~ThreadPool() {
     for (u32 i = 0; i < this->m_pool_count; i++) {
         WorkThread* workthread = &this->mp_work_thread[i];
-        //ã‚µã‚¹ãƒšãƒ³ãƒ‰ã‚’è§£é™¤
+        //ƒTƒXƒyƒ“ƒh‚ğ‰ğœ
         EVOLUTION_DISABLED_STATE(workthread->m_pool_write_thread_read_flg, THREAD_POOL_FLAG::LOOP);
         pthread_cond_signal(&workthread->m_cond);
 
@@ -137,20 +137,20 @@ u32 EisableBitNumber(u32 flag) {
     return 32;
 }
 
-//ã‚¿ã‚¹ã‚¯ã®å®Ÿè¡Œ
+//ƒ^ƒXƒN‚ÌÀs
 
 void ThreadPool::Execute(u32 sleep_ms_time) {
 
-    //ã‚¿ã‚¹ã‚¯ã®å®Ÿè¡Œ
+    //ƒ^ƒXƒN‚ÌÀs
     u32 task_count = this->m_resistor_task_count;
     u32 f = 0;
     while (task_count != 0 && f < this->m_flag_cout) {
         u32& thread_group = this->mp_thread_use_flag[f];
-        //groupã®ãƒ“ãƒƒãƒˆãŒé£½å’ŒçŠ¶æ…‹ã‹èª¿ã¹ã‚‹
+        //group‚Ìƒrƒbƒg‚ª–O˜aó‘Ô‚©’²‚×‚é
         if (EVOLUTION::FUNCTION::BitCount32(thread_group) != 32) {
             s32 bit_number = DisableBitNumber(thread_group);
             u32 index = bit_number + (f * 32);
-            //ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ—ãƒ¼ãƒ«ã‚ªãƒ¼ãƒãƒ¼ãƒã‚§ãƒƒã‚¯
+            //ƒXƒŒƒbƒhƒv[ƒ‹ƒI[ƒo[ƒ`ƒFƒbƒN
             if (this->m_pool_count <= index) {
                 break;
             }
@@ -158,7 +158,7 @@ void ThreadPool::Execute(u32 sleep_ms_time) {
             TaskInfo* info = this->PopTask();
             workthread->mp_task = info->task;
             workthread->mp_parameter = info->parameter;
-            //ã‚µã‚¹ãƒšãƒ³ãƒ‰ã‚’è§£é™¤
+            //ƒTƒXƒyƒ“ƒh‚ğ‰ğœ
             pthread_cond_signal(&workthread->m_cond);
             EVOLUTION_ENABLE_STATE(thread_group, (0x01 << bit_number));
             --task_count;
@@ -170,16 +170,16 @@ void ThreadPool::Execute(u32 sleep_ms_time) {
     f = 0;
     while (f < this->m_flag_cout) {
         u32& thread_group = this->mp_thread_use_flag[f];
-        //groupã®ãƒ“ãƒƒãƒˆãŒé£½å’ŒçŠ¶æ…‹ã‹èª¿ã¹ã‚‹
+        //group‚Ìƒrƒbƒg‚ª–O˜aó‘Ô‚©’²‚×‚é
         if (EVOLUTION::FUNCTION::BitCount32(thread_group) != 0) {
             s32 bit_number = EisableBitNumber(thread_group);
             u32 index = bit_number + (f * 32);
-            //ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ—ãƒ¼ãƒ«ã‚ªãƒ¼ãƒãƒ¼ãƒã‚§ãƒƒã‚¯
+            //ƒXƒŒƒbƒhƒv[ƒ‹ƒI[ƒo[ƒ`ƒFƒbƒN
             if (this->m_pool_count <= index) {
                 break;
             }
             WorkThread* workthread = &this->mp_work_thread[index];
-            //ãƒ•ãƒ©ã‚°ã®ã‚³ãƒ”ãƒ¼
+            //ƒtƒ‰ƒO‚ÌƒRƒs[
             workthread->m_pool_write_thread_read_flg = workthread->m_pool_read_thread_write_flg;
             if (EVOLUTION_IS_STATE(workthread->m_pool_write_thread_read_flg, THREAD_POOL_FLAG::END)) {
                 workthread->mp_task->OnEndExecute(workthread->mp_result);
@@ -196,27 +196,27 @@ void ThreadPool::Execute(u32 sleep_ms_time) {
         ++f;
     }
 
-    //ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‚¿ã‚¹ã‚¯ãŒãªã‘ã‚Œã°10ãƒŸãƒªç§’ã‚¹ãƒªãƒ¼ãƒ—
+    //“o˜^‚³‚ê‚Ä‚¢‚éƒ^ƒXƒN‚ª‚È‚¯‚ê‚Î10ƒ~ƒŠ•bƒXƒŠ[ƒv
     if (this->m_resistor_task_count == 0) {
         usleep((s32) (sleep_ms_time * 1000));
     }
 }
 
 
-//ã‚¿ã‚¹ã‚¯ã®ç™»éŒ²
+//ƒ^ƒXƒN‚Ì“o˜^
 
 ThreadResult::_RESULT ThreadPool::TaskExecute(ITask* task, IParameter* parameter) {
     this->PushTask(task, parameter);
     return ThreadResult::RESULT_OK;
 }
 
-//å®Ÿè¡Œã‚¿ã‚¹ã‚¯æ•°ã‚’å–å¾—
+//Àsƒ^ƒXƒN”‚ğæ“¾
 
 s32 ThreadPool::TaskExecuteCount()const {
     return this->m_resistor_task_count;
 }
 
-//ã‚¿ã‚¹ã‚¯ã®ã‚­ãƒ¥ãƒ¼ã«ç©ã‚€
+//ƒ^ƒXƒN‚ÌƒLƒ…[‚ÉÏ‚Ş
 
 void ThreadPool::PushTask(ITask* task, IParameter* parameter) {
     this->mp_mutex->Lock();
@@ -229,20 +229,20 @@ void ThreadPool::PushTask(ITask* task, IParameter* parameter) {
 
     this->mp_taskinfo_queue_last++;
     u32 count = this->mp_taskinfo_queue_last - this->mp_taskinfo_queue_root;
-    //ãƒ©ã‚¹ãƒˆã¾ã§è¡Œã£ã¦ã„ãŸå ´åˆæœ€åˆã«æˆ»ã™
+    //ƒ‰ƒXƒg‚Ü‚Ås‚Á‚Ä‚¢‚½ê‡Å‰‚É–ß‚·
     if (this->m_max_task_queue_count <= count) {
         this->mp_taskinfo_queue_last = this->mp_taskinfo_queue_root;
     }
 
     this->m_resistor_task_count++;
     this->mp_mutex->UnLock();
-    //ã‚­ãƒ¥ãƒ¼ã‚ªãƒ¼ãƒãƒ¼
+    //ƒLƒ…[ƒI[ƒo[
     if (this->mp_taskinfo_queue_last == this->mp_taskinfo_queue_first) {
         throw THREAD::ThreadException::CREATE_THREAD_POOL_EXCEPTION;
     }
 }
 
-//ã‚¿ã‚¹ã‚¯ã®å–å¾—
+//ƒ^ƒXƒN‚Ìæ“¾
 
 TaskInfo* ThreadPool::PopTask() {
     if (this->m_resistor_task_count == 0) {
@@ -252,7 +252,7 @@ TaskInfo* ThreadPool::PopTask() {
     TaskInfo* info = this->mp_taskinfo_queue_first;
     this->mp_taskinfo_queue_first++;
     u32 count = this->mp_taskinfo_queue_first - this->mp_taskinfo_queue_root;
-    //ãƒ©ã‚¹ãƒˆã¾ã§è¡Œã£ã¦ã„ãŸå ´åˆæœ€åˆã«æˆ»ã™
+    //ƒ‰ƒXƒg‚Ü‚Ås‚Á‚Ä‚¢‚½ê‡Å‰‚É–ß‚·
     if (this->m_max_task_queue_count <= count) {
         this->mp_taskinfo_queue_first = this->mp_taskinfo_queue_root;
     }
@@ -266,7 +266,7 @@ void ThreadPool::Thread(ptr_t argument, const IThread* thread) {
 
 
     while (EVOLUTION_IS_STATE(work->m_pool_write_thread_read_flg, THREAD_POOL_FLAG::LOOP)) {
-        //ãƒ•ãƒ©ã‚°ã®ã‚³ãƒ”ãƒ¼
+        //ƒtƒ‰ƒO‚ÌƒRƒs[
         work->m_pool_read_thread_write_flg = work->m_pool_write_thread_read_flg;
         EVOLUTION_DISABLED_STATE(work->m_pool_read_thread_write_flg, THREAD_POOL_FLAG::WAIT);
         if (work->mp_task != nullptr) {
@@ -287,7 +287,7 @@ void ThreadPool::Thread(ptr_t argument, const IThread* thread) {
 
 
 //-----------------------------------------------
-//ãƒ¯ãƒ¼ã‚«ãƒ¼ã‚¹ãƒ¬ãƒƒãƒ‰
+//ƒ[ƒJ[ƒXƒŒƒbƒh
 //-----------------------------------------------
 
 WorkThread::WorkThread() :
