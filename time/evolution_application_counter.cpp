@@ -13,17 +13,17 @@ u32 HighQualityApplicationCounter::AddRef(){
 }
 
 RESULT HighQualityApplicationCounter::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IApplicationCounter))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IApplicationCounter))
     {
         *ppvObject = static_cast<IApplicationCounter*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_HighQualityApplicationCounter))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_HighQualityApplicationCounter))
     {
         *ppvObject = static_cast<HighQualityApplicationCounter*>(this);
         this->AddRef();
@@ -88,17 +88,17 @@ u32 ApplicationCounter::AddRef(){
 }
 
 RESULT ApplicationCounter::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IApplicationCounter))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IApplicationCounter))
     {
         *ppvObject = static_cast<IApplicationCounter*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_ApplicationCounter))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_ApplicationCounter))
     {
         *ppvObject = static_cast<ApplicationCounter*>(this);
         this->AddRef();

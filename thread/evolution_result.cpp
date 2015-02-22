@@ -12,17 +12,17 @@ u32 Result::AddRef(){
 }
 
 RESULT Result::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IResult))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IResult))
     {
         *ppvObject = static_cast<IResult*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_Result))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_Result))
     {
         *ppvObject = static_cast<Result*>(this);
         this->AddRef();

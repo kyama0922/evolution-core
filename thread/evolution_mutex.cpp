@@ -20,17 +20,17 @@ u32 Mutex::AddRef(){
 }
 
 RESULT Mutex::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IMutex))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IMutex))
     {
         *ppvObject = static_cast<IMutex*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_Mutex))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_Mutex))
     {
         *ppvObject = static_cast<Mutex*>(this);
         this->AddRef();

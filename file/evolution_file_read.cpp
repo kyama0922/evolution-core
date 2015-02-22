@@ -10,22 +10,22 @@ u32 FileRead::AddRef(){
 }
 
 RESULT FileRead::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IFile))
     {
         *ppvObject = static_cast<IFile*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileRead))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IFileRead))
     {
         *ppvObject = static_cast<IFileRead*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_FileRead))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_FileRead))
     {
         *ppvObject = static_cast<FileRead*>(this);
         this->AddRef();
@@ -148,22 +148,22 @@ u32 TextFileRead::AddRef(){
 }
 
 RESULT TextFileRead::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown*>(this);
         this->AddRef();
     }
-        else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile))
+        else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IFile))
     {
         *ppvObject = static_cast<IFile*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileRead))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IFileRead))
     {
         *ppvObject = static_cast<IFileRead*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_TextFileRead))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_TextFileRead))
     {
         *ppvObject = static_cast<TextFileRead*>(this);
         this->AddRef();

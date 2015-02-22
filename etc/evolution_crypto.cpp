@@ -164,7 +164,7 @@ Hash::Hash(const Hash& t){
 
 }
 
-u8 Hash::Convert(u8 str[2]){
+u8 Hash::Convert(u8 (&str)[2]){
 	u8 work;
 
 	if(isdigit(str[0])){
@@ -181,40 +181,40 @@ u8 Hash::Convert(u8 str[2]){
 	return work;
 }
 
-void Hash::MD5(u8 dest[17], u8* src, u32 src_len){
+void Hash::MD5(u8(&dest)[17], u8* src, u32 src_len){
 	MD5_CTX context;
 	MD5Init(&context);
 	MD5Update(&context, src, src_len);
-	MD5Final(dest , &context);
+    MD5Final(&dest[0], &context);
 	dest[16] = 0;
 }
 
-void Hash::MD5Const(u8 dest[17], const u8* src, u32 src_len){
+void Hash::MD5Const(u8(&dest)[17], const u8* src, u32 src_len){
 	MD5_CTX context;
 	unsigned char* work = new unsigned char[src_len];
 	memcpy(work, src, src_len);
 	MD5Init(&context);
 	MD5Update(&context, work, src_len);
-	MD5Final(dest, &context);
+    MD5Final(&dest[0], &context);
 	dest[16] = 0;
 	delete work;
 }
 
-void Hash::SHA1(u8 dest[21], u8* src, u32 src_len){
+void Hash::SHA1(u8(&dest)[21], u8* src, u32 src_len){
 	SHA1_CTX context;
 	SHA1Init(&context);
 	SHA1Update(&context, src, src_len);
-	SHA1Final(dest, &context);
+    SHA1Final(&dest[0], &context);
 	dest[20] = 0;
 }
 
-void Hash::SHA1Const(u8 dest[21], const u8* src, u32 src_len){
+void Hash::SHA1Const(u8(&dest)[21], const u8* src, u32 src_len){
 	SHA1_CTX context;
 	unsigned char* work = new unsigned char[src_len];
 	memcpy(work, src, src_len);
 	SHA1Init(&context);
 	SHA1Update(&context, work, src_len);
-	SHA1Final(dest, &context);
+    SHA1Final(&dest[0], &context);
 	dest[20] = 0;
 	delete work;
 }

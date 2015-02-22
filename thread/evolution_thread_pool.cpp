@@ -12,17 +12,17 @@ u32 ThreadPool::AddRef(){
 }
 
 RESULT ThreadPool::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IThreadPool))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IThreadPool))
     {
         *ppvObject = static_cast<IThreadPool*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_ThreadPool))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_ThreadPool))
     {
         *ppvObject = static_cast<ThreadPool*>(this);
         this->AddRef();

@@ -43,16 +43,16 @@ u32 StackMemoryManager::AddRef(){
 }
 
 RESULT StackMemoryManager::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IStackMemoryManager)){
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IStackMemoryManager)){
         *ppvObject = static_cast<IStackMemoryManager*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_StackMemoryManager)){
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_StackMemoryManager)){
         *ppvObject = static_cast<StackMemoryManager*>(this);
         this->AddRef();
     }

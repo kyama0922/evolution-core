@@ -13,17 +13,17 @@ u32 Parameter::AddRef(){
 }
 
 RESULT Parameter::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IParameter))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IParameter))
     {
         *ppvObject = static_cast<IParameter*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_Parameter))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_Parameter))
     {
         *ppvObject = static_cast<Parameter*>(this);
         this->AddRef();

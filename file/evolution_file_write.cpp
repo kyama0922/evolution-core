@@ -10,22 +10,22 @@ u32 FileWrite::AddRef(){
 }
 
 RESULT FileWrite::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IFile))
     {
         *ppvObject = static_cast<IFile*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileWrite))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IFileWrite))
     {
         *ppvObject = static_cast<IFileWrite*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_FileWrite))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_FileWrite))
     {
         *ppvObject = static_cast<FileWrite*>(this);
         this->AddRef();
@@ -166,22 +166,22 @@ u32 TextFileWrite::AddRef(){
 }
 
 RESULT TextFileWrite::QueryInterface(EVOLUTION::EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFile))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IFile))
     {
         *ppvObject = static_cast<IFile*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IFileWrite))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IFileWrite))
     {
         *ppvObject = static_cast<IFileWrite*>(this);
         this->AddRef();
     }
-    else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_TextFileWrite))
+    else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_TextFileWrite))
     {
         *ppvObject = static_cast<TextFileWrite*>(this);
         this->AddRef();

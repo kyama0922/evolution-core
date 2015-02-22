@@ -14,17 +14,17 @@ u32 MemoryNode::AddRef(){
 }
 
 RESULT MemoryNode::QueryInterface(EVOLUTION_IID riid, void **ppvObject){
-    if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IUnknown))
+    if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IUnknown))
     {
         *ppvObject = static_cast<IUnknown *>(this);
         this->AddRef();
     }
-    //else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_IStaticMemoryManager))
+    //else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_IStaticMemoryManager))
     //{
     //    *ppvObject = static_cast<IStaticMemoryManager*>(this);
     //    this->AddRef();
     //}
-    //else if (IsEqualGUID(riid, EVOLUTION_GUID::IID_TLSFMemoryAllocator))
+    //else if (EVOLUTION_EQUALGUID(riid, EVOLUTION_GUID::IID_TLSFMemoryAllocator))
     //{
     //    *ppvObject = static_cast<TLSFMemoryAllocator*>(this);
     //    this->AddRef();

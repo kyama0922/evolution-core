@@ -11,7 +11,7 @@ namespace EVOLUTION{
         private:
             Hash();
             Hash(const Hash& t);
-            u8 Convert(u8 str[2]);
+            u8 Convert(u8 (&str)[2]);
 
             u32* mp_crc32_table;
             u64* mp_crc64_table;
@@ -23,28 +23,28 @@ namespace EVOLUTION{
             //第一引数には最低128bit(null文字を含めて17バイト)確保すること
             //第二引数の文字列からハッシュコードを作成
             //--------------------------------
-            void MD5(u8 dest[17], u8* src, u32 src_len);
+            void MD5(u8(&dest)[17], u8* src, u32 src_len);
 
             //--------------------------------
             //MD5アルゴリズムを仕様
             //第一引数には最低128bit(null文字を含めて17バイト)確保すること
             //第二引数の文字列からハッシュコードを作成
             //--------------------------------
-            void MD5Const(u8 dest[17], const u8* src, u32 src_len);
+            void MD5Const(u8(&dest)[17], const u8* src, u32 src_len);
 
             //--------------------------------
             //SHAアルゴリズムを仕様
             //第一引数には最低160bit(null文字を含めて21バイト)確保すること
             //第二引数の文字列からハッシュコードを作成
             //--------------------------------
-            void SHA1(u8 dest[21], u8* src, u32 src_len);
+            void SHA1(u8(&dest)[21], u8* src, u32 src_len);
 
             //--------------------------------
             //SHAアルゴリズムを仕様
             //第一引数には最低160bit(null文字を含めて21バイト)確保すること
             //第二引数の文字列からハッシュコードを作成
             //--------------------------------
-            void SHA1Const(u8 dest[21], const u8* src, u32 src_len);
+            void SHA1Const(u8(&dest)[21], const u8* src, u32 src_len);
 
             u32 Adler_32(const u8* data, u32 length);
             u32 CRC32(const u8* data, u32 length);
